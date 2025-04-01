@@ -20,5 +20,4 @@ if prompt:
     """
     st.markdown (chat_box, unsafe_allow_html=True)
 
-    
-    st.markdown (chat_box, unsafe_allow_html=True)
+
