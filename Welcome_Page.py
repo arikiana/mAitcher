@@ -9,7 +9,10 @@ st.page_link("pages/mAitcher.py", label = "Get started", icon = "💫")
 
 mAitcher = st.page_link("pages/mAitcher.py")
 chatGPT = st.page_link("pages/AI Interfaces/chatGPT.py")
-Claude =                      
+Claude = st.pages_link("pages/AI Interfaces/Claude.py")
+Gemini = st.pages_link("pages/AI Interfaces/Gemini.py")
+Grok = st.pages_link("pages/AI Interfaces/Gemini.py")
+Le_Chat = st.pages_link("pages/AI Interfaces/Le_Chat.py")
 
 st.navigation({
   "Choose your AI" : [mAitcher, chatGPT, Claude, Gemini, Grok, Le_Chat],
