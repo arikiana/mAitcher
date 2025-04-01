@@ -4,9 +4,9 @@ st.title("Nice to see you! Ready to be mAItched?")
 st.write("Welcome to mAItcher, your connective AI-platform.")
 st.header("How it works:")
 st.write("Instead of typing your prompt into every different AI-chatbot you know and then deciding which answer is best, you can just give your prompt to me. I will mAItch you with the best fit model for your request.")
-st.page_link("pages/mAItcher.py", label = "Get started", icon = "💫")
+st.page_link("pages/mAitcher.py", label = "Get started", icon = "💫")
 
 st.navigation({
-  "Choose your AI" : [mAItcher, chatGPT, Claude, Gemini, Grok, Le Chat],
+  "Choose your AI" : [mAitcher, chatGPT, Claude, Gemini, Grok, Le Chat],
   "User Profile" : [My Data, Use Frequency]
 })
