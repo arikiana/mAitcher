@@ -7,16 +7,16 @@ st.write("Instead of typing your prompt into every different AI-chatbot you know
 
 st.page_link("pages/mAitcher.py", label = "Get started", icon = "💫")
 
-
-mAitcher = st.page_link("pages/mAitcher.py")
-chatGPT = st.page_link("pages/ChatGPT.py")
-Claude = st.pages_link("pages/Claude.py")
-Gemini = st.pages_link("pages/Gemini.py")
-Grok = st.pages_link("pages/Gemini.py")
-Le_Chat = st.pages_link("pages/Le_Chat.py")
-
 with st.sidebar:
+  mAitcher = st.page_link("pages/mAitcher.py")
+  chatGPT = st.page_link("pages/ChatGPT.py")
+  Claude = st.pages_link("pages/Claude.py")
+  Gemini = st.pages_link("pages/Gemini.py")
+  Grok = st.pages_link("pages/Grok.py")
+  Le_Chat = st.pages_link("pages/Le_Chat.py")
+
   st.navigation({
     "Choose your AI" : [mAitcher, chatGPT, Claude, Gemini, Grok, Le_Chat],
     "User Profile" : [My_Data, Use_Frequency]
   })
+  
