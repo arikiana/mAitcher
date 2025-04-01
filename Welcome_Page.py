@@ -5,6 +5,12 @@ st.write("Welcome to mAItcher, your connective AI-platform.")
 st.header("How it works:")
 st.write("Instead of typing your prompt into every different AI-chatbot you know and then deciding which answer is best, you can just give your prompt to me. I will mAItch you with the best fit model for your request.")
 
+st.markdown("Nice to see you! Ready to be **mAItched?**")
+st.markdown('''
+    :rainbow[Welcome to mAItcher, your connective AI-platform.] :black[How it works:] 
+    :black[Instead of typing your prompt into every different AI-chatbot you know and then deciding which answer is best, you can just give your prompt to me. I will mAItch you with the] 
+    :blue-background[best fit model] :black[for your request.]''')
+
 st.page_link("pages/mAitcher.py", label = "Get started", icon = "💫")
 
 with st.sidebar:
