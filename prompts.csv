@@ -1,0 +1,40 @@
+﻿prompt_text,best_model_label,score_openai,score_claude,score_gemini,score_mistral,score_grok
+Write a Python function that calculates the factorial of a number.,2,3,0,10,6,5
+Explain the difference between a Python list and tuple.,1,10,1,6,8,9
+Write a JavaScript function that checks if a number is prime.,3,4,3,5,10,8
+Generate a SQL query to find all orders placed in 2024.,4,6,2,7,5,10
+Explain what a null pointer is in C++.,4,5,4,6,7,8
+Write a CSS rule that centers a div both vertically and horizontally.,4,6,5,7,10,8
+Convert this loop to a list comprehension: for x in range(10): squares.append(x*x),4,7,6,9,8,10
+"What does ""pass by reference"" mean in Java?",4,7,6,9,8,10
+Write a Python program that sorts a list of strings alphabetically.,4,8,6,9,7,9
+Explain the difference between synchronous and asynchronous code.,0,10,6,9,7,9
+Summarize the main idea of climate change in three sentences.,1,6,10,0,2,5
+Summarize the history of the Roman Empire in one paragraph.,4,7,8,1,6,10
+Give a bullet-point summary of the French Revolution.,4,8,9,1,4,10
+Summarize the causes of World War I in 3–4 sentences.,1,6,9,0,4,6
+Summarize the benefits of exercise in one paragraph.,4,5,9,1,6,10
+Provide a summary of how photosynthesis works.,4,8,9,3,6,10
+Summarize the story of Romeo and Juliet.,4,6,8,2,4,9
+Give a summary of the key principles of Stoicism.,4,5,7,3,5,8
+Summarize the concept of blockchain technology.,4,6,7,2,4,9
+Summarize how the internet works.,0,10,3,5,5,4
+"Translate “Good morning, how are you?” into Spanish.",2,8,10,8,8,10
+"Translate “I would like a coffee, please” into French.",2,7,10,8,7,10
+Translate “Where is the nearest train station?” into Albanian.,2,6,10,6,6,10
+Translate “I love learning new languages” into German.,3,8,9,10,8,9
+"Translate ""Although the committee, which had been deliberating for over six hours without reaching a consensus, initially rejected the proposal due to concerns about long-term sustainability, they eventually approved a revised version after extensive negotiations that included concessions from all parties involved."" into German.",3,7,7,5,10,7
+Translate “Where can I find a taxi?” into Russian.,2,8,8,10,8,8
+Translate “Do you accept credit cards?” into Arabic.,1,8,9,8,7,9
+Translate “It’s a beautiful day today” into Korean.,4,7,8,7,6,9
+"Translate “Can you speak more slowly, please?” into Chinese.",4,8,9,8,7,10
+List five healthy snacks that don’t require refrigeration.,4,5,8,5,5,10
+What are some good strategies for falling asleep faster?,0,10,3,5,5,4
+Explain how to brew a cup of French press coffee.,0,10,2,6,9,9
+Describe how compound interest works.,0,10,8,3,10,9
+List five ways to stay productive when working from home.,0,9,6,7,6,8
+What are the basic steps to start a small business?,0,10,5,6,8,9
+Give a 30-minute beginner bodyweight workout.,0,10,7,8,7,9
+What are the main symptoms of dehydration?,4,7,8,6,8,9
+Suggest five fun indoor activities for a rainy day.,4,8,6,7,7,10
+What are the benefits of drinking enough water daily?,4,9,7,8,7,10
