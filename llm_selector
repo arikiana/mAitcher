@@ -407,20 +407,19 @@ def call_llm_api(prompt, selected_llm):
 # First, we need to install the LLM packages in Colab.
 
 # OpenAI ChatGPT
-!pip install --upgrade openai
+import openai
 
 # Anthropic Claude
-!pip install anthropic
+import anthropic
 
 # Google Gemini
-!pip install google-generativeai
-!pip install --upgrade google-generativeai
+import google-generativeai
 
 # Mistral
-!pip install mistralai
+import mistralai
 
 # Grok
-!pip install git+https://github.com/moesmufti/xai_grok_sdk.git
+import git+https://github.com/moesmufti/xai_grok_sdk.git
 
 # This part of the code will call OpenAI's ChatGPT API if prompted by the user's
 # prompt. The code is based on OpenAI's own documentation as well as our own
