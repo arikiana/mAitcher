@@ -456,8 +456,16 @@ message = client.messages.create(
     temperature=1,
     system="You are a world-class poet. Respond only with short poems.",
     messages=[
-  {"role": "user", "content": prompt}
-]
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "Why is the ocean salty?"
+                }
+            ]
+        }
+    ]
 )
 print(message.content)
 
