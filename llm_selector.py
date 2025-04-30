@@ -415,25 +415,23 @@ def call_llm_api(prompt, selected_llm):
     # tutorial. Retrieved April 1, 2025, from
     # https://docs.python.org/3/tutorial/controlflow.html#defining-functions
 
-import os
 import openai
+import streamlit as st
 
-# set your API key directly, or better yet via the OPENAI_API_KEY env var:
-openai.api_key = "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"
-def call_chatgpt(prompt: str,
-                 model: str = "gpt-4.1",
-                 temperature: float = 0.7,
-                 max_tokens: int = 512) -> str:
+# Retrieve API key securely from Streamlit secrets
+client = openai.OpenAI(api_key=st.secrets["openai"]["api_key"])
+
+def call_chatgpt(prompt):
     try:
-        resp = openai.chat.completions.create(
-            model=model,
-            messages=[{"role":"user","content":prompt}],
-            temperature=temperature,
-            max_tokens=max_tokens
+        response = client.chat.completions.create(
+            model="gpt-4o",
+            messages=[
+                {"role": "user", "content": prompt}
+            ]
         )
-        return resp.choices[0].message.content
+        return response.choices[0].message.content
     except Exception as e:
-        return f"OpenAI API error: {e}"
+        return f"ChatGPT API error: {str(e)}"
 
 # This part of the code will call Claude's API if prompted by the user's prompt.
 # The code is based on Anthropic's own documentation as well as our own
@@ -452,7 +450,24 @@ def call_chatgpt(prompt: str,
     # Anthropic. (n.d.). Initial setup. Retrieved April 1, 2025,
     # from https://docs.anthropic.com/en/docs/initial-setup
 
-#--------------
+import anthropic
+import streamlit as st
+
+# Retrieve API key securely from Streamlit secrets
+client = anthropic.Anthropic(api_key=st.secrets["anthropic"]["claude_api_key"])
+
+def call_claude(prompt: str) -> str:
+    try:
+        response = client.messages.create(
+            model="claude-3-7-sonnet-20250219",
+            max_tokens=1000,
+            messages=[
+                {"role": "user", "content": prompt}
+            ]
+        )
+        return response.content
+    except Exception as e:
+        return f"Claude API error: {e}"
 
 # This part of the code will call Gemini's API if prompted by the user's prompt.
 # The code is based on Google's own documentation as well as our own
