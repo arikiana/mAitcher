@@ -86,7 +86,6 @@ st.dataframe(df)
 
 from sklearn.model_selection import train_test_split
 
-
 # After losing a lot of time, we finally came to the conclusion -and understood-
 # that machine learning models can not work with text directly. Thus, we had to
 # import the TF-IDF Vectorizer which formats text into vectors. This way, our
@@ -449,21 +448,21 @@ def call_chatgpt(prompt: str) -> str:
     # Anthropic. (n.d.). Initial setup. Retrieved April 1, 2025,
     # from https://docs.anthropic.com/en/docs/initial-setup
 
+import os
 import anthropic
-claude_client = anthropic.Anthropic(api_key = "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")
+
+client = anthropic.Client(api_key=os.environ["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"])
 
 def call_claude(prompt: str) -> str:
     try:
-        response = claude_client.messages.create(
-            model = "claude-3-7-sonnet-20250219",
-            max_tokens = 1000,
-            messages = [
-                {"role": "user", "content": prompt}
-            ]
+        resp = client.completions.create(
+            model="claude-3-7-sonnet-20250219",
+            prompt=anthropic.HUMAN_PROMPT + prompt + anthropic.AI_PROMPT,
+            max_tokens_to_sample=1_000
         )
-        return response.content
+        return resp.completion
     except Exception as e:
-        return f"Claude API error: {e}"
+        return f"Claude API error: {e!r}"
 
 # This part of the code will call Gemini's API if prompted by the user's prompt.
 # The code is based on Google's own documentation as well as our own
