@@ -419,7 +419,7 @@ import streamlit as st
 import openai
 
 # ⚠️ Hard-coded API key (copy-paste your real key here)
-OPENAI_API_KEY = "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"
+OPENAI_API_KEY = "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"
 
 client = openai.OpenAI(api_key=OPENAI_API_KEY)
 
