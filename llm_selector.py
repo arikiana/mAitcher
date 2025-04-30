@@ -448,22 +448,21 @@ def call_chatgpt(prompt: str) -> str:
     # Anthropic. (n.d.). Initial setup. Retrieved April 1, 2025,
     # from https://docs.anthropic.com/en/docs/initial-setup
 
-import os
 import anthropic
-[env]
-ANTHROPIC_API_KEY = "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"
-import os, anthropic
-client = anthropic.Client(api_key=os.environ["ANTHROPIC_API_KEY"])
+client = anthropic.Anthropic(api_key = "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")
+
 def call_claude(prompt: str) -> str:
     try:
-        resp = client.completions.create(
-            model="claude-3-7-sonnet-20250219",
-            prompt=anthropic.HUMAN_PROMPT + prompt + anthropic.AI_PROMPT,
-            max_tokens_to_sample=1_000
+        response = client.messages.create(
+            model = "claude-3-7-sonnet-20250219",
+            max_tokens = 1000,
+            messages = [
+                {"role": "user", "content": prompt}
+            ]
         )
-        return resp.completion
+        return response.content
     except Exception as e:
-        return f"Claude API error: {e!r}"
+        return f"Claude API error: {e}"
 
 # This part of the code will call Gemini's API if prompted by the user's prompt.
 # The code is based on Google's own documentation as well as our own
