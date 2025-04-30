@@ -415,37 +415,7 @@ def call_llm_api(prompt, selected_llm):
     # tutorial. Retrieved April 1, 2025, from
     # https://docs.python.org/3/tutorial/controlflow.html#defining-functions
 
-import streamlit as st
-import openai
-
-# ⚠️ Hard-coded API key (copy-paste your real key here)
-OPENAI_API_KEY = "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"
-
-client = openai.OpenAI(api_key=OPENAI_API_KEY)
-
-# …then the rest of your code…
-prompt = st.text_input("Write your prompt here")
-if prompt:
-    response = client.chat.completions.create(
-        model="gpt-4o",
-        messages=[{"role":"user","content":prompt}],
-    )
-    st.write(response.choices[0].message.content)
-
-
-import openai
-chatgpt_client = openai.OpenAI(api_key = "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")
-def call_chatgpt(prompt):
-    try:
-        response = chatgpt_client.chat.completions.create(
-            model = "gpt-4o",
-            messages = [
-                {"role": "user", "content": prompt}
-            ]
-        )
-        print(response.choices[0].message.content)
-    except Exception as e:
-        return f"ChatGPT API error: {str(e)}"
+#-------------
 
 # This part of the code will call Claude's API if prompted by the user's prompt.
 # The code is based on Anthropic's own documentation as well as our own
@@ -464,9 +434,7 @@ def call_chatgpt(prompt):
     # Anthropic. (n.d.). Initial setup. Retrieved April 1, 2025,
     # from https://docs.anthropic.com/en/docs/initial-setup
 
-
 #--------------
-
 
 # This part of the code will call Gemini's API if prompted by the user's prompt.
 # The code is based on Google's own documentation as well as our own
