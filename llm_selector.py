@@ -480,13 +480,9 @@ def call_claude(prompt: str) -> str:
         return f"Claude API error: {e}"
 
 import anthropic
-
-# use a different variable name!
-claude_client = anthropic.Anthropic(api_key="sk-ant-…")
-
+claude_client = anthropic.Anthropic(api_key="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")
 def call_claude(prompt):
     try:
-        # this is the Anthropic “messages” API
         resp = claude_client.messages.create(
             model="claude-3-opus-20240229",
             messages=[{"role":"user","content":prompt}],
