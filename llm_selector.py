@@ -415,23 +415,23 @@ def call_llm_api(prompt, selected_llm):
     # tutorial. Retrieved April 1, 2025, from
     # https://docs.python.org/3/tutorial/controlflow.html#defining-functions
 
-import openai
+#import openai
 
 # — Load your OpenAI key however you like (e.g. st.secrets) —
-openai.api_key = st.secrets["OPENAI_API_KEY"]
+#openai.api_key = st.secrets["OPENAI_API_KEY"]
 
-def call_chatgpt(prompt: str) -> str:
+#def call_chatgpt(prompt: str) -> str:
     """
     Send a prompt to ChatGPT via OpenAI's ChatCompletion API
     and return the model’s response text.
     """
-    resp = openai.ChatCompletion.create(
-        model="gpt-4o-mini",          # or "gpt-4", "gpt-3.5-turbo", etc.
-        messages=[{"role": "user", "content": prompt}],
-        max_tokens=1000,
-        temperature=1,
-    )
-    return resp.choices[0].message.content
+ #   resp = openai.ChatCompletion.create(
+#        model="gpt-4o-mini",          # or "gpt-4", "gpt-3.5-turbo", etc.
+ #       messages=[{"role": "user", "content": prompt}],
+  #      max_tokens=1000,
+   #     temperature=1,
+ #   )
+ #   return resp.choices[0].message.content
 
 
 
