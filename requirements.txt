@@ -6,4 +6,5 @@ openai
 anthropic
 google-generativeai
 mistralai
-xai-grok-sdk
+xai-grok-sdk 
+git+https://github.com/moesmufti/xai_grok_sdk.git
