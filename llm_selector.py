@@ -421,39 +421,20 @@ import openai
 # set your API key directly, or better yet via the OPENAI_API_KEY env var:
 openai.api_key = os.getenv("OPENAI_API_KEY", "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")
 
-def call_openai(prompt: str, 
-                model: str = "gpt-3.5-turbo", 
-                temperature: float = 0.7,
-                max_tokens: int = 512) -> str:
-    """
-    Sends `prompt` to OpenAI's chat-completion endpoint and returns the generated text.
-    
-    Args:
-      prompt: The user prompt to send.
-      model:  The OpenAI chat model to use (e.g. "gpt-4", "gpt-3.5-turbo").
-      temperature: Sampling temperature.
-      max_tokens: Maximum number of tokens to generate.
-      
-    Returns:
-      The text content of the first choice, or an error message.
-    """
+def call_chatgpt(prompt: str,
+                 model: str = "gpt-3.5-turbo",
+                 temperature: float = 0.7,
+                 max_tokens: int = 512) -> str:
     try:
-        response = openai.ChatCompletion.create(
+        resp = openai.ChatCompletion.create(
             model=model,
-            messages=[{"role": "user", "content": prompt}],
+            messages=[{"role":"user","content":prompt}],
             temperature=temperature,
-            max_tokens=max_tokens,
+            max_tokens=max_tokens
         )
-        # grab the assistant’s reply
-        return response.choices[0].message.content
+        return resp.choices[0].message.content
     except Exception as e:
         return f"OpenAI API error: {e}"
-
-# Example usage
-if __name__ == "__main__":
-    resp = call_openai("Explain the significance of the Turing test")
-    print(resp)
-
 
 # This part of the code will call Claude's API if prompted by the user's prompt.
 # The code is based on Anthropic's own documentation as well as our own
