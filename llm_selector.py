@@ -450,9 +450,10 @@ def call_chatgpt(prompt: str) -> str:
 
 import os
 import anthropic
-
-client = anthropic.Client(api_key=os.environ["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"])
-
+[env]
+ANTHROPIC_API_KEY = "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"
+import os, anthropic
+client = anthropic.Client(api_key=os.environ["ANTHROPIC_API_KEY"])
 def call_claude(prompt: str) -> str:
     try:
         resp = client.completions.create(
