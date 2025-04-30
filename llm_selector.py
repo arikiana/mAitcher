@@ -416,14 +416,23 @@ def call_llm_api(prompt, selected_llm):
     # https://docs.python.org/3/tutorial/controlflow.html#defining-functions
 
 import openai
+
+# — Load your OpenAI key however you like (e.g. st.secrets) —
 openai.api_key = st.secrets["OPENAI_API_KEY"]
+
 def call_chatgpt(prompt: str) -> str:
-    response = openai.ChatCompletion.create(
-        model="gpt-4",
-        messages=[{"role":"user", "content": prompt}],
-        max_tokens=500
+    """
+    Send a prompt to ChatGPT via OpenAI's ChatCompletion API
+    and return the model’s response text.
+    """
+    resp = openai.ChatCompletion.create(
+        model="gpt-4o-mini",          # or "gpt-4", "gpt-3.5-turbo", etc.
+        messages=[{"role": "user", "content": prompt}],
+        max_tokens=1000,
+        temperature=1,
     )
-    return response.choices[0].message.content
+    return resp.choices[0].message.content
+
 
 
 
@@ -447,7 +456,7 @@ def call_chatgpt(prompt: str) -> str:
 import streamlit as st
 from anthropic import Client, HUMAN_PROMPT, AI_PROMPT
 
-# Load your Anthropic API key from Streamlit secrets
+# — Load your Anthropic key from Streamlit secrets —
 key = st.secrets["ANTHROPIC_API_KEY"]
 client = Client(api_key=key)
 
@@ -456,18 +465,14 @@ def call_claude(prompt: str) -> str:
     Send a prompt to Claude via Anthropic's completions API
     and return Claude's response text.
     """
-    # Anthropic expects you to wrap your user prompt between their markers
     full_prompt = HUMAN_PROMPT + prompt + AI_PROMPT
-
     resp = client.completions.create(
         model="claude-3-7-sonnet-20250219",
         prompt=full_prompt,
-        max_tokens_to_sample=1000,
+        max_tokens=1000,
         temperature=1,
     )
-
     return resp.completion
-
 
 
 # This part of the code will call Gemini's API if prompted by the user's prompt.
