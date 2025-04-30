@@ -23,7 +23,7 @@ if prompt:
     """
     st.markdown (chat_box, unsafe_allow_html=True)
 
-from llm_selector.py import select_best_llm, call_llm_api
+from llm_selector import select_best_llm, call_llm_api
  
 st.title("🧠 Best LLM Selector")
  
