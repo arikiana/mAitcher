@@ -399,11 +399,6 @@ def call_llm_api(prompt, selected_llm):
   else:
     return "Error: Unknown LLM selected"
 
-# First, we need to install the LLM packages in Colab.
-
-# OpenAI ChatGPT
-import openai
-
 # Anthropic Claude
 import anthropic
 
@@ -519,18 +514,20 @@ def call_gemini(prompt):
     # Retrieved April 1, 2025, from https://docs.mistral.ai/api/
 
 from mistralai import Mistral
-client = Mistral(api_key="vJQyWusvYsujsVZDZZiUjaSLDjbV8H4C")
-
-def call_mistral(prompt):
+mistral_client = Mistral(api_key = "vJQyWusvYsujsVZDZZiUjaSLDjbV8H4C")
+def call_mistral(prompt: str) -> str:
     try:
-        response = client.chat(
-            model = "mistral-small", 
-            messages = [{"role": "user", "content": prompt}]
+        response = mistral_client.chat.complete(
+            model = "mistral-small",
+            messages = [{"role": "user", "content": prompt}],
         )
         return response.choices[0].message.content
     except Exception as e:
-        return f"Mistral API error: {e}"
-
+        response = mistral_client.chat.complete(
+            model = "mistral-small",
+            messages = [{"role": "user", "content": prompt}],
+        )
+        
 # This part of the code will call XAI's API if prompted by the user's prompt.
 # The code is based on OpenAI's own documentation and xAI's own documentation
 # as well as our own modifications to make the code work in our workflow.
