@@ -426,8 +426,7 @@ def call_chatgpt(prompt):
             ]
         )
         print(response.choices[0].message.content)
-    except Excepti
-    on as e:
+    except Exception as e:
         return f"ChatGPT API error: {str(e)}"
 
 # This part of the code will call Claude's API if prompted by the user's prompt.
