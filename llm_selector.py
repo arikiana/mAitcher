@@ -426,7 +426,7 @@ def call_chatgpt(prompt: str,
                  temperature: float = 0.7,
                  max_tokens: int = 512) -> str:
     try:
-        resp = openai.chatcompletion.create(
+        resp = openai.chat.completions.create(
             model=model,
             messages=[{"role":"user","content":prompt}],
             temperature=temperature,
