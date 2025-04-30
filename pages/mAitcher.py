@@ -23,4 +23,17 @@ if prompt:
     """
     st.markdown (chat_box, unsafe_allow_html=True)
 
-
+from llm_selector import select_best_llm, call_llm_api
+ 
+st.title("🧠 Best LLM Selector")
+ 
+prompt = st.text_area("Enter your prompt:", height=150)
+ 
+if st.button("Submit"):
+    with st.spinner("Selecting best LLM..."):
+        selected_llm, predicted_label = select_best_llm(prompt)
+        st.success(f"✅ Selected LLM: {selected_llm} (score: {predicted_label:.2f})")
+ 
+        response = call_llm_api(prompt, selected_llm)
+        st.markdown("### 🤖 Response")
+        st.write(response)
