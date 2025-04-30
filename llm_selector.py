@@ -419,7 +419,6 @@ import google.generativeai as genai
 import mistralai
 
 # Grok
-import git+https://github.com/moesmufti/xai_grok_sdk.git
 
 # This part of the code will call OpenAI's ChatGPT API if prompted by the user's
 # prompt. The code is based on OpenAI's own documentation as well as our own
