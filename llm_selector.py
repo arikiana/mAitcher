@@ -465,8 +465,7 @@ def call_chatgpt(prompt):
 
 import os
 import anthropic
-claude_client = anthropic.Anthropic(api_key = "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")
-
+claude_client = anthropic.Anthropic(api_key = "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")
 def call_claude(prompt: str) -> str:
     try:
         response = claude_client.messages.create(
