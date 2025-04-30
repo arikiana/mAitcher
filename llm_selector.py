@@ -58,11 +58,11 @@ df = pd.read_csv("prompts.csv")
     # documentation. Retrieved April 1, 2025, from
     # https://ipython.readthedocs.io/en/8.26.0/api/generated/IPython.display.html
 
-from IPython.display import display
-display(df)
+import streamlit as st
+import pandas as pd
 
-from google.colab import drive
-drive.mount('/content/drive')
+df= pd.read_csv("prompts.csv")
+st.dataframe(df)
 
 # We know need to train our model on our data set. After some research, it
 # appeared that the sklearn library would be best to train our model.
