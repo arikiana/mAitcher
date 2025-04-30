@@ -453,7 +453,7 @@ def call_chatgpt(prompt):
     # from https://docs.anthropic.com/en/docs/initial-setup
 
 from anthropic import Client, HUMAN_PROMPT, AI_PROMPT
-anthropic_client = Client(api_key=anthropic_key)
+anthropic_client = Client(api_key=ANTHROPIC_API_KEY)
 def call_claude(prompt: str) -> str:
     full_prompt = HUMAN_PROMPT + prompt + AI_PROMPT
     resp = anthropic_client.completions.create(
