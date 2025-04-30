@@ -451,7 +451,7 @@ client = anthropic.Anthropic(api_key = "sk-ant-api03-M9okFuYscVA1ZU3BQ6utauXBW_K
 
 def call_claude(prompt: str) -> str:
     try:
-        response = client.messages.create(
+        response = client.completions.create(
             model = "claude-3-7-sonnet-20250219",
             max_tokens = 1000,
             messages = [
