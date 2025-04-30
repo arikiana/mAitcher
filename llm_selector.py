@@ -399,17 +399,6 @@ def call_llm_api(prompt, selected_llm):
   else:
     return "Error: Unknown LLM selected"
 
-# Anthropic Claude
-import anthropic
-
-# Google Gemini
-import google.generativeai as genai
-
-# Mistral
-import mistralai
-
-# Grok
-
 # This part of the code will call OpenAI's ChatGPT API if prompted by the user's
 # prompt. The code is based on OpenAI's own documentation as well as our own
 # modifications to make the code work in our workflow.
@@ -436,7 +425,7 @@ client = OpenAI(
 def call_chatgpt(prompt: str) -> str:
     try:
         resp = client.chat.completions.create(
-            model="gpt-4o",
+            model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": prompt}],
         )
         return resp.choices[0].message.content
