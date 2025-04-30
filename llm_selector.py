@@ -446,26 +446,8 @@ def call_chatgpt(prompt):
     # Anthropic. (n.d.). Initial setup. Retrieved April 1, 2025,
     # from https://docs.anthropic.com/en/docs/initial-setup
 
-import anthropic
-from anthropic import Client, HUMAN_PROMPT, AI_PROMPT
-# instantiate and name it exactly as you call it below
-anthropic_client = Client(
-    api_key=st.secrets["anthropic"]["ANTHROPIC_API_KEY"]
-)
-client = anthropic.Anthropic(api_key = "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")
 
-def call_claude(prompt: str) -> str:
-    try:
-        response = anthropic_client.completions.create(
-            model = "claude-3-7-sonnet-20250219",
-            max_tokens = 1000,
-            messages = [
-                {"role": "user", "content": prompt}
-            ]
-        )
-        return response.content
-    except Exception as e:
-        return f"Claude API error: {e}"
+#--------------
 
 
 # This part of the code will call Gemini's API if prompted by the user's prompt.
