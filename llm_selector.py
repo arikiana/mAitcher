@@ -419,8 +419,7 @@ import os
 import openai
 
 # set your API key directly, or better yet via the OPENAI_API_KEY env var:
-openai.api_key = os.getenv("OPENAI_API_KEY", "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")
-
+openai.api_key = "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"
 def call_chatgpt(prompt: str,
                  model: str = "gpt-3.5-turbo",
                  temperature: float = 0.7,
