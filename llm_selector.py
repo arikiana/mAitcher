@@ -448,8 +448,6 @@ def call_chatgpt(prompt: str) -> str:
     # Anthropic. (n.d.). Initial setup. Retrieved April 1, 2025,
     # from https://docs.anthropic.com/en/docs/initial-setup
 
-
-export ANTHROPIC_API_KEY='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'
 import anthropic
 client = anthropic.Anthropic()
 message = client.messages.create(
@@ -458,16 +456,8 @@ message = client.messages.create(
     temperature=1,
     system="You are a world-class poet. Respond only with short poems.",
     messages=[
-        {
-            "role": "user",
-            "content": [
-                {
-                    "type": "text",
-                    "text": "Why is the ocean salty?"
-                }
-            ]
-        }
-    ]
+  {"role": "user", "content": prompt}
+]
 )
 print(message.content)
 
