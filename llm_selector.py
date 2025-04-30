@@ -418,7 +418,7 @@ def call_llm_api(prompt, selected_llm):
 from openai import OpenAI
 
 client = OpenAI(
-    api_key="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",
+    api_key="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",
 )
 
 def call_chatgpt(prompt: str) -> str:
