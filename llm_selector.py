@@ -460,7 +460,7 @@ def call_claude(prompt: str) -> str:
                 {"role": "user", "content": prompt}
             ]
         )
-        return response.content
+        return response.text
     except Exception as e:
         return f"Claude API error: {e}"
 
