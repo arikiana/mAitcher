@@ -415,21 +415,15 @@ def call_llm_api(prompt, selected_llm):
     # tutorial. Retrieved April 1, 2025, from
     # https://docs.python.org/3/tutorial/controlflow.html#defining-functions
 
-from openai import OpenAI
+import openai
+openai.api_key = st.secrets["OPENAI_API_KEY"]
 
-client = OpenAI(
-    api_key="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",
+response = openai.ChatCompletion.create(
+  model="gpt-4",
+  messages=[{"role": "user", "content": prompt}],
+  max_tokens=500
 )
-
-def call_chatgpt(prompt: str) -> str:
-    try:
-        resp = client.chat.completions.create(
-            model="gpt-4.1",
-            messages=[{"role": "user", "content": prompt}],
-        )
-        return resp.choices[0].message.content
-    except Exception as e:
-        return f"ChatGPT API error: {e}"
+return response.choices[0].message.content
 
 # This part of the code will call Claude's API if prompted by the user's prompt.
 # The code is based on Anthropic's own documentation as well as our own
