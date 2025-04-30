@@ -448,26 +448,22 @@ def call_chatgpt(prompt: str) -> str:
     # Anthropic. (n.d.). Initial setup. Retrieved April 1, 2025,
     # from https://docs.anthropic.com/en/docs/initial-setup
 
+import streamlit as st
 import anthropic
-client = anthropic.Anthropic(api_key = "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")
-message = client.messages.create(
-    model="claude-3-7-sonnet-20250219",
-    max_tokens=1000,
-    temperature=1,
-    system="You are a world-class poet. Respond only with short poems.",
-    messages=[
-        {
-            "role": "user",
-            "content": [
-                {
-                    "type": "text",
-                    "text": "Why is the ocean salty?"
-                }
-            ]
-        }
-    ]
-)
-print(message.content)
+
+key = st.secrets["ANTHROPIC_API_KEY"]
+client = anthropic.Anthropic(api_key=key)
+
+def call_claude(prompt: str) -> str:
+    resp = client.messages.create(
+      model="claude-3-7-sonnet-20250219",
+      max_tokens=1000,
+      temperature=1,
+      system="You are a world-class poet. Respond only with short poems.",
+      messages=[{"role":"user","content":prompt}],
+    )
+    return resp.text
+
 
 # This part of the code will call Gemini's API if prompted by the user's prompt.
 # The code is based on Google's own documentation as well as our own
