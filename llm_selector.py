@@ -424,7 +424,7 @@ client = OpenAI(
 def call_chatgpt(prompt: str) -> str:
     try:
         resp = client.chat.completions.create(
-            model="gpt-4 turbo",
+            model="gpt-4.1",
             messages=[{"role": "user", "content": prompt}],
         )
         return resp.choices[0].message.content
