@@ -453,19 +453,19 @@ def call_chatgpt(prompt):
 import anthropic
 import streamlit as st
 
-# Retrieve API key securely from Streamlit secrets
-client = anthropic.Anthropic(api_key=st.secrets["anthropic"]["claude_api_key"])
+# Create an Anthropic client
+claude_client = anthropic.Anthropic(api_key=st.secrets["anthropic"]["claude_api_key"])
 
 def call_claude(prompt: str) -> str:
     try:
-        response = client.messages.create(
+        response = claude_client.messages.create(
             model="claude-3-7-sonnet-20250219",
             max_tokens=1000,
             messages=[
                 {"role": "user", "content": prompt}
             ]
         )
-        return response.content
+        return response.content[0].text
     except Exception as e:
         return f"Claude API error: {e}"
 
