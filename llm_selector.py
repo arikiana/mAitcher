@@ -415,6 +415,24 @@ def call_llm_api(prompt, selected_llm):
     # tutorial. Retrieved April 1, 2025, from
     # https://docs.python.org/3/tutorial/controlflow.html#defining-functions
 
+import streamlit as st
+import openai
+
+# ⚠️ Hard-coded API key (copy-paste your real key here)
+OPENAI_API_KEY = "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"
+
+client = openai.OpenAI(api_key=OPENAI_API_KEY)
+
+# …then the rest of your code…
+prompt = st.text_input("Write your prompt here")
+if prompt:
+    response = client.chat.completions.create(
+        model="gpt-4o",
+        messages=[{"role":"user","content":prompt}],
+    )
+    st.write(response.choices[0].message.content)
+
+
 import openai
 chatgpt_client = openai.OpenAI(api_key = "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")
 def call_chatgpt(prompt):
