@@ -1,1 +1,9 @@
 streamlit
+pandas
+scikit-learn
+numpy
+openai
+anthropic
+google-generativeai
+mistralai
+xai-grok-sdk
