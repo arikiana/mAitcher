@@ -417,13 +417,15 @@ def call_llm_api(prompt, selected_llm):
 
 import openai
 openai.api_key = st.secrets["OPENAI_API_KEY"]
+def call_chatgpt(prompt: str) -> str:
+    response = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=[{"role":"user", "content": prompt}],
+        max_tokens=500
+    )
+    return response.choices[0].message.content
 
-response = openai.ChatCompletion.create(
-  model="gpt-4",
-  messages=[{"role": "user", "content": prompt}],
-  max_tokens=500
-)
-return response.choices[0].message.content
+
 
 # This part of the code will call Claude's API if prompted by the user's prompt.
 # The code is based on Anthropic's own documentation as well as our own
