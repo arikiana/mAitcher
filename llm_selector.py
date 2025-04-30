@@ -519,13 +519,12 @@ def call_gemini(prompt):
     # Retrieved April 1, 2025, from https://docs.mistral.ai/api/
 
 from mistralai import Mistral
-
-client = Mistral(api_key = "vJQyWusvYsujsVZDZZiUjaSLDjbV8H4C")
+client = Mistral(api_key="vJQyWusvYsujsVZDZZiUjaSLDjbV8H4C")
 
 def call_mistral(prompt):
     try:
-        response = client.chat.complete(
-            model = "mistral-small",
+        response = client.chat(
+            model = "mistral-small", 
             messages = [{"role": "user", "content": prompt}]
         )
         return response.choices[0].message.content
