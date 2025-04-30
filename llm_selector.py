@@ -427,19 +427,21 @@ import mistralai
     # tutorial. Retrieved April 1, 2025, from
     # https://docs.python.org/3/tutorial/controlflow.html#defining-functions
 
-import openai
-openai_client = openai.OpenAI(api_key = "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")
-def call_chatgpt(prompt):
+from openai import OpenAI
+
+client = OpenAI(
+    api_key="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",
+)
+
+def call_chatgpt(prompt: str) -> str:
     try:
-        response = openai_client.chat.completions.create(
-            model = "gpt-4o",
-            messages = [
-                {"role": "user", "content": prompt}
-            ]
+        resp = client.chat.completions.create(
+            model="gpt-4o",
+            messages=[{"role": "user", "content": prompt}],
         )
-        print(response.choices[0].message.content)
+        return resp.choices[0].message.content
     except Exception as e:
-        return f"ChatGPT API error: {str(e)}"
+        return f"ChatGPT API error: {e}"
 
 # This part of the code will call Claude's API if prompted by the user's prompt.
 # The code is based on Anthropic's own documentation as well as our own
