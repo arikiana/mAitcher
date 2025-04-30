@@ -1,5 +1,3 @@
-import streamlit as st
-st.write("🔒 Loaded secrets:", dict(st.secrets))
 
 # Startseite für die App, welche die Funktion für User:innen erklärt
 import streamlit as st
