@@ -456,7 +456,7 @@ def call_llm_api(prompt, selected_llm):
 import streamlit as st
 from anthropic import Client, HUMAN_PROMPT, AI_PROMPT
 
-# — Load your Anthropic key from Streamlit secrets —
+# 1️⃣ Load your Anthropic key
 key = st.secrets["ANTHROPIC_API_KEY"]
 client = Client(api_key=key)
 
@@ -467,12 +467,13 @@ def call_claude(prompt: str) -> str:
     """
     full_prompt = HUMAN_PROMPT + prompt + AI_PROMPT
     resp = client.completions.create(
-        model="claude-3-7-sonnet-20250219",
+        model="claude-2",        # ← a broadly-available Claude model
         prompt=full_prompt,
         max_tokens=1000,
         temperature=1,
     )
     return resp.completion
+
 
 
 # This part of the code will call Gemini's API if prompted by the user's prompt.
