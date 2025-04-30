@@ -407,7 +407,6 @@ def call_llm_api(prompt, selected_llm):
 # First, we need to install the LLM packages in Colab.
 
 # OpenAI ChatGPT
-!pip install openai
 !pip install --upgrade openai
 
 # Anthropic Claude
