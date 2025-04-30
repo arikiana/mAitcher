@@ -6,7 +6,7 @@ st.title("mAItcher")
 
 from llm_selector import select_best_llm, call_llm_api
  
-st.subtitle("We'll select the best AI for your prompt")
+st.subheader("We'll select the best AI for your prompt")
  
 prompt = st.text_area("Enter your prompt:", height=150)
  
