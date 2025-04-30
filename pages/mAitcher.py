@@ -1,7 +1,10 @@
 import streamlit as st
 
+# Used ChatGPT to help guide the writing and correction of the following code
+
 st.title("mAItcher")
 prompt = st.chat_input("Write your prompt here")
+
 
 if prompt:
     chat_box = f"""
