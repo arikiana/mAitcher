@@ -416,7 +416,15 @@ def call_llm_api(prompt, selected_llm):
     # https://docs.python.org/3/tutorial/controlflow.html#defining-functions
 
 import openai
-client = openai.OpenAI(api_key = "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")
+openai_client = openai.OpenAI(api_key="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")
+
+import anthropic
+from anthropic import HUMAN_PROMPT, AI_PROMPT
+anthropic_client = anthropic.Client(api_key=st.secrets["ANTHROPIC_API_KEY"])
+
+
+import openai
+client = openai.OpenAI(api_key = "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")
 def call_chatgpt(prompt):
     try:
         response = client.chat.completions.create(
@@ -451,24 +459,16 @@ def call_chatgpt(prompt):
 
 import streamlit as st
 from anthropic import Client, HUMAN_PROMPT, AI_PROMPT
-
-# 1️⃣ Load your Anthropic key
-key = st.secrets["ANTHROPIC_API_KEY"]
-client = Client(api_key=key)
-
 def call_claude(prompt: str) -> str:
-    """
-    Send a prompt to Claude via Anthropic's completions API
-    and return Claude's response text.
-    """
     full_prompt = HUMAN_PROMPT + prompt + AI_PROMPT
-    resp = client.completions.create(
-        model="claude-2",        # ← a broadly-available Claude model
+    resp = anthropic_client.completions.create(
+        model="claude-2",                 # or whichever model ID you have access to
         prompt=full_prompt,
-        max_tokens=1000,
-        temperature=1,
+        max_tokens_to_sample=1000,        # correct parameter for Text Completions :contentReference[oaicite:2]{index=2}
+        temperature=1.0,
     )
-    return resp.completion
+    return resp.completion               # note .completion, not .choices
+
 
 
 
