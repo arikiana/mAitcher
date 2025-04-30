@@ -445,20 +445,29 @@ def call_chatgpt(prompt: str) -> str:
     # from https://docs.anthropic.com/en/docs/initial-setup
 
 import streamlit as st
-import anthropic
+from anthropic import Client, HUMAN_PROMPT, AI_PROMPT
 
+# Load your Anthropic API key from Streamlit secrets
 key = st.secrets["ANTHROPIC_API_KEY"]
-client = anthropic.Anthropic(api_key=key)
+client = Client(api_key=key)
 
 def call_claude(prompt: str) -> str:
-    resp = client.messages.create(
-      model="claude-3-7-sonnet-20250219",
-      max_tokens=1000,
-      temperature=1,
-      system="You are a world-class poet. Respond only with short poems.",
-      messages=[{"role":"user","content":prompt}],
+    """
+    Send a prompt to Claude via Anthropic's completions API
+    and return Claude's response text.
+    """
+    # Anthropic expects you to wrap your user prompt between their markers
+    full_prompt = HUMAN_PROMPT + prompt + AI_PROMPT
+
+    resp = client.completions.create(
+        model="claude-3-7-sonnet-20250219",
+        prompt=full_prompt,
+        max_tokens_to_sample=1000,
+        temperature=1,
     )
-    return resp.text
+
+    return resp.completion
+
 
 
 # This part of the code will call Gemini's API if prompted by the user's prompt.
