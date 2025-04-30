@@ -464,11 +464,11 @@ def call_chatgpt(prompt):
     # from https://docs.anthropic.com/en/docs/initial-setup
 
 import anthropic
-client = anthropic.Anthropic(api_key = "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")
+claude_client = anthropic.Anthropic(api_key = "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")
 
 def call_claude(prompt: str) -> str:
     try:
-        response = client.messages.create(
+        response = claude_client.messages.create(
             model = "claude-3-7-sonnet-20250219",
             max_tokens = 1000,
             messages = [
@@ -476,6 +476,23 @@ def call_claude(prompt: str) -> str:
             ]
         )
         return response.content
+    except Exception as e:
+        return f"Claude API error: {e}"
+
+import anthropic
+
+# use a different variable name!
+claude_client = anthropic.Anthropic(api_key="sk-ant-…")
+
+def call_claude(prompt):
+    try:
+        # this is the Anthropic “messages” API
+        resp = claude_client.messages.create(
+            model="claude-3-opus-20240229",
+            messages=[{"role":"user","content":prompt}],
+            max_tokens=1000,
+        )
+        return resp.content[0].text
     except Exception as e:
         return f"Claude API error: {e}"
 
