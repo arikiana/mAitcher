@@ -464,11 +464,11 @@ def call_chatgpt(prompt):
     # from https://docs.anthropic.com/en/docs/initial-setup
 
 import anthropic
-client = anthropic.Anthropic(api_key = "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")
+claude_client = anthropic.Anthropic(api_key = "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")
 
 def call_claude(prompt: str) -> str:
     try:
-        response = client.messages.create(
+        response = claude_client.messages.create(
             model = "claude-3-7-sonnet-20250219",
             max_tokens = 1000,
             messages = [
