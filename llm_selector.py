@@ -413,7 +413,7 @@ import openai
 import anthropic
 
 # Google Gemini
-import google-generativeai
+import google.generativeai as genai
 
 # Mistral
 import mistralai
