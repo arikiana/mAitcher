@@ -367,17 +367,12 @@ llm_classes = ['ChatGPT', 'Claude', 'Gemini', 'Mistral', 'Grok']
     # Retrieved April 1, 2025, from
     # https://docs.python.org/3/tutorial/datastructures.html#dictionaries
 
-def select_best_llm(prompt, model, vectorizer, llm_classes):
-  vect_prompt = vectorizer.transform([prompt])
-  predicted_label = model.predict(vect_prompt)[0]
-  best_index = round(predicted_label)
-  best_llm = llm_classes[best_index]
-  return {
-      'prompt': prompt,
-      'predicted_label': predicted_label,
-      'best_llm_index' : best_index,
-      'selected_llm' : best_llm
-  }
+def select_best_llm(prompt):
+    vect_prompt    = vectorizer.transform([prompt])
+    predicted_label = model.predict(vect_prompt)[0]
+    best_index      = round(predicted_label)
+    selected_llm    = llm_classes[best_index]
+    return selected_llm, predicted_label
 
 # Now we are tackling the last part of our project. We need to connect our code
 # to the model's API. So, when the user's sends a prompt, our code detects which
