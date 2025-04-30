@@ -416,13 +416,10 @@ def call_llm_api(prompt, selected_llm):
     # https://docs.python.org/3/tutorial/controlflow.html#defining-functions
 
 import openai
-openai_client = openai.OpenAI(api_key="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")
-
-import openai
-client = openai.OpenAI(api_key = "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")
+chatgpt_client = openai.OpenAI(api_key = "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")
 def call_chatgpt(prompt):
     try:
-        response = client.chat.completions.create(
+        response = chatgpt_client.chat.completions.create(
             model = "gpt-4o",
             messages = [
                 {"role": "user", "content": prompt}
@@ -431,9 +428,6 @@ def call_chatgpt(prompt):
         print(response.choices[0].message.content)
     except Exception as e:
         return f"ChatGPT API error: {str(e)}"
-
-
-
 
 # This part of the code will call Claude's API if prompted by the user's prompt.
 # The code is based on Anthropic's own documentation as well as our own
@@ -452,20 +446,21 @@ def call_chatgpt(prompt):
     # Anthropic. (n.d.). Initial setup. Retrieved April 1, 2025,
     # from https://docs.anthropic.com/en/docs/initial-setup
 
-from anthropic import Client, HUMAN_PROMPT, AI_PROMPT
-anthropic_client = Client(api_key=ANTHROPIC_API_KEY)
+import anthropic
+client = anthropic.Anthropic(api_key = "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")
+
 def call_claude(prompt: str) -> str:
-    full_prompt = HUMAN_PROMPT + prompt + AI_PROMPT
-    resp = anthropic_client.completions.create(
-        model="claude-3.5-sonnet",       # pick one you see in client.models.list()
-        prompt=full_prompt,
-        max_tokens_to_sample=1000,
-        temperature=1.0,
-    )
-    return resp.completion
-
-
-
+    try:
+        response = client.messages.create(
+            model = "claude-3-7-sonnet-20250219",
+            max_tokens = 1000,
+            messages = [
+                {"role": "user", "content": prompt}
+            ]
+        )
+        return response.content
+    except Exception as e:
+        return f"Claude API error: {e}"
 
 
 # This part of the code will call Gemini's API if prompted by the user's prompt.
