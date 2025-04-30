@@ -433,10 +433,10 @@ import mistralai
     # https://docs.python.org/3/tutorial/controlflow.html#defining-functions
 
 import openai
-client = openai.OpenAI(api_key = "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")
+openai_client = openai.OpenAI(api_key = "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")
 def call_chatgpt(prompt):
     try:
-        response = client.chat.completions.create(
+        response = openai_client.chat.completions.create(
             model = "gpt-4o",
             messages = [
                 {"role": "user", "content": prompt}
