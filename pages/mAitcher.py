@@ -3,29 +3,10 @@ import streamlit as st
 # Used ChatGPT to help guide the writing and correction of the following code
 
 st.title("mAItcher")
-prompt = st.chat_input("Write your prompt here")
-
-
-if prompt:
-    chat_box = f"""
-    <div style='
-        border 1px solid black; #HTML to create bubble like chat style, used ChatGPT to explain, navigate and correct code.
-        padding: 10px;
-        border-radius: 8px;
-        background-color: #f0f0f0;
-        margin: 10px;
-        max-width: 80%
-        width: fit-content
-    '>
-
-         You: {prompt}
-    </div>
-    """
-    st.markdown (chat_box, unsafe_allow_html=True)
 
 from llm_selector import select_best_llm, call_llm_api
  
-st.title("🧠 Best LLM Selector")
+st.subtitle("We'll select the best AI for your prompt")
  
 prompt = st.text_area("Enter your prompt:", height=150)
  
