@@ -620,3 +620,48 @@ def run_from_terminal():
 
     llm_response = call_llm_api(prompt, result['selected_llm'])
     print("\nLLM Response:\n", llm_response)
+
+
+# The very last part of our project is to show the LLM usage statistics of the 
+# user through a chart with the global distribution percentages.
+
+# To do this, we need to import matplotlib and os.
+
+
+import matplotlib.pyplot as plt
+import os
+
+
+# to show the chart, we needs
+
+
+if os.path.exists("prompts.csv"):
+    
+    
+# Read CSV into a table (DataFrame)
+
+
+df_log = pd.read_csv("prompts.csv")
+
+
+# Count how many times each model was selected
+
+
+model_counts = df_log["model"].value_counts()
+
+
+# Name the title of the section in Streamlit
+    
+
+st.markdown("#🧠 Global LLM Match Distribution ")
+
+   
+# Create a pie chart with percentages 
+    fig, ax = plt.subplots()
+    ax.pie(model_counts.values, labels=model_counts.index, autopct='%1.1f%%')
+    ax.set_title("LLM Match Frequency Across All Users")
+
+    # Display the chart in the Streamlit app
+    st.pyplot(fig)
+else:
+    st.warning("No data found yet. prompts.csv file does not exist.")
