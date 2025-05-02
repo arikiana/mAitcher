@@ -2,6 +2,7 @@
 # Startseite für die App, welche die Funktion für User:innen erklärt
 import streamlit as st
 import numpy as np
+import pandas as pd
 
 st.title("Nice to see you! Ready to be mAitched?")
 
@@ -21,6 +22,27 @@ tab1, tab2 = st.tabs(["User Frequency", "Visit other AI-Models"]) #Tabs um die V
 
 tab1.subheader("Most popular AI-models")
 tab1.text('We have tracked the most frequent matches between what our users search for and the different AIs. All relevant information can be found in the chart below:')
+
+
+llm_classes = ['ChatGPT', 'Claude', 'Gemini', 'Mistral', 'Grok']
+if 'llm_usage' not in st.session_state:
+    st.session_state.llm_usage = {llm: 0 for llm in llm_classes}
+
+if user_prompt:
+    selected_llm, score = select_best_llm(user_prompt)
+    st.write(f"**{selected_llm}** (score {score:.2f}) →")
+    response = call_llm_api(user_prompt, selected_llm)
+    st.write(response)
+    
+from llm_selector import select_best_llm, call_llm_api
+st.subheader('LLM Usage Statistics')
+usage_df = pd.DataFrame.from_dict(
+    st.session_state.llm_usage, 
+    orient = 'index', 
+    columns = ['Count']
+)
+st.bar_chart(usage_df)
+
 
 #Links um direkt auf die AIs zugreifen zu können, Funktionen via Streamlit Documentation 
 tab2.subheader("Links")
