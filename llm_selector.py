@@ -21,6 +21,7 @@
 # Le Chat is 3, and Grok is 4.
 
 # As the app is developped in Streamlit, we need to import it in our code.
+# We will also need NumPy later in our code.
 
 # Once the .csv file was done, we made some extensive research to find the right
 # Python library to work with our tabular dataset. We found out it is the Pandas
@@ -34,6 +35,7 @@
 
 import streamlit as st
 import pandas as pd
+import numpy as np
 
 
 # Once Pandas is imported, we need this library to interact with our .csv file.
@@ -47,6 +49,10 @@ import pandas as pd
     # pandas documentation. Retrieved April 1, 2025, from
     # https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html
 
+    # IPython development team. (n.d.). IPython.display.display. IPython
+    # documentation. Retrieved April 1, 2025, from
+    # https://ipython.readthedocs.io/en/8.26.0/api/generated/IPython.display.html
+
     # pandas development team. (n.d.). pandas.DataFrame. pandas documentation.
     # Retrieved April 1, 2025, from
     # https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html​
@@ -55,26 +61,13 @@ import pandas as pd
 df = pd.read_csv("prompts.csv")
 
 
-# Then, we ran into the issue that only the first five columns of the .csv file
-# were showing. Thus, after a quick glance on internet, we found that we needed
-# to use the IPython library and its display module. This would then enable us
-# to use the display function to show the entire .csv file.
-
-# The source:
-    # IPython development team. (n.d.). IPython.display.display. IPython
-    # documentation. Retrieved April 1, 2025, from
-    # https://ipython.readthedocs.io/en/8.26.0/api/generated/IPython.display.html
-
-
-
-
-
 # We know need to train our model on our data set. After some research, it
 # appeared that the sklearn library would be best to train our model.
 
-# After some extensive reading, we discovered that we needed to split our
+# We also discovered that we needed to split our
 # dataset into training and testing sets. Thus, we need to import the
-# "train_test_split" module.
+# "train_test_split" module. This splits our data into a training set
+# and a testing set.
 
 # The sources:
     # Google Developers. (n.d.). Dividing the original dataset. In Machine
@@ -89,12 +82,15 @@ df = pd.read_csv("prompts.csv")
     # scikit-learn documentation. Retrieved April 1, 2025, from
     # https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html​
 
+
 from sklearn.model_selection import train_test_split
 
+
 # After losing a lot of time, we finally came to the conclusion -and understood-
-# that machine learning models can not work with text directly. Thus, we had to
+# that machine learning models can not work with text directly. Thus, we needed to
 # import the TF-IDF Vectorizer which formats text into vectors. This way, our
-# model can understand the data it has to train on.
+# model can understand the data it has to train on as it transforms our text into
+# numerical vectors.
 
 # The sources:
     # scikit-learn developers. (n.d.). Text feature extraction.
@@ -110,14 +106,16 @@ from sklearn.model_selection import train_test_split
     # text feature extraction in model testing. Medium. Retrieved April 1, 2025,
     # from https://medium.com/@masudowolabi/how-to-use-sklearns-tfidfvectorizer-for-text-feature-extraction-in-model-testing-e1221fd274f8
 
+
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 
-# One might think that using the RandomForestClasifier would be best. However,
-# after carefully analyzing the data, we could see that each LLM responds in a
-# rather predictable way to prompt specific features (e.g. coding). Thus, one
-# can see linear patterns between prompt features and LLM scores.
-# This part which will enable the training to happen
+# One might think that using the RandomForestClasifier would be best as it combines
+# the prediction of multiple decision trees. However, after carefully analyzing the data, 
+# we could see that each LLM responds in a
+# rather predictable way to prompts' specific features (e.g. coding). Thus, one
+# can see linear patterns between prompt features and LLM scores. This is why we
+# we need to import the LinearRegression from sklearn.
 
 # The sources:
     # scikit-learn developers. (n.d.). Linear models. scikit-learn
@@ -132,15 +130,17 @@ from sklearn.feature_extraction.text import TfidfVectorizer
     # scikit-learn documentation. Retrieved April 1, 2025, from
     # https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html
 
+
 from sklearn.linear_model import LinearRegression
 
 
-# After training our model on the data, we need a feedback loop to ensure
-# that our data is qualitative enough. To do so, we relied on our Operations
+# After we'll have trained our model on our data, we will need a feedback loop
+# to assess the quality of our data. To do so, we relied on our Operations
 # Management knowledge. We decided to use the Mean Squared Error and the R2
-# score. The first tells us how wrong the model is on average, whereas the
-# tells us how good the model is on average. The closer the R2 score is to 1.0,
-# the more patterns the model captures.
+# score. MSE measures the average squared difference between the predicted and
+# actual value. The lower the better the performance of our model. R2 indicates how
+# well the model explains the variability of the target variable. The closer the R2 score 
+# is to 1.0, the more patterns the model captures.
 
 #The source:
     # scikit-learn developers. (n.d.). sklearn.metrics.mean_squared_error.
@@ -161,13 +161,12 @@ from sklearn.linear_model import LinearRegression
     # Retrieved April 1, 2025, from
     # https://scikit-learn.org/stable/modules/model_evaluation.html#r2-score
 
+
 from sklearn.metrics import mean_squared_error, r2_score
+
 
 # Now that all the necessary and relevant tools have been imported, we will
 # begin the training of our model with our .csv file.
-
-df = pd.read_csv("prompts.csv")
-
 
 # For the data to be used as "training food", we need to extract it from the
 # .csv file. X extracts the input features; it is what the model will learn
@@ -184,25 +183,27 @@ df = pd.read_csv("prompts.csv")
     # (version 0.23). Retrieved April 1, 2025, from
     # https://pandas.pydata.org/pandas-docs/version/0.23/generated/pandas.DataFrame.html​
 
+
 X = df['prompt_text']
 y = df['best_model_label']
 
-# As mentionned above, plain text can not be used to train a model. Thus,
-# we need to vectorize it. As we have already imported the sklearn module that
-# vectorizes, we can directly vectorize it, which will add a specific and
-# granular importance on each words given the context.
+
+# As mentionned above, plain text cannot be used to train a model. Thus, we are going to
+# vectorize our data to add a specific and granular importance on each words depending on
+# the context.
 
 # The source:
     # scikit-learn developers. (n.d.). Text feature extraction. In Feature
     # extraction. scikit-learn documentation. Retrieved April 1, 2025, from
     # https://scikit-learn.org/stable/modules/feature_extraction.html#text-feature-extraction​
 
+
 vectorizer = TfidfVectorizer()
 
 
-# Now, the following snippet allows us to make the model learn the vocabulary
-# and transform it into a matrix. This way, it creates a matrix of the semantic
-# text patterns numerically.
+# Now that the data has been vectorized,the following snippet allows us to make 
+# the model learn the vocabulary and transform it into a matrix. 
+# This way, it creates a matrix of the semantic text patterns numerically.
 
 # The source:
     # scikit-learn developers. (n.d.).
@@ -210,13 +211,15 @@ vectorizer = TfidfVectorizer()
     # scikit-learn documentation. Retrieved April 1, 2025, from
     # https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html​
 
+
 X_vect = vectorizer.fit_transform(X)
+
 
 # At this stage, the data is almost fully ready to undergo the training.
 # The last step is to split the data between training and testing sets.
 
 # The code snippet is separated into the following parts:
-  # X_train: it is the inputs the model will be trained on.
+  # X_train: the inputs the model will be trained on.
   # X_test: the inputs that the model is actually tested on.
   # y_train: the correct output for training.
   # y_test: the correct output for testing.
@@ -229,9 +232,9 @@ X_vect = vectorizer.fit_transform(X)
   # random_state = 21: controls how the data is shuffled before it's split.
 
 # The X and the y are respectively coming from
-# "X = df['prompt_text']" and "y = df['best_model_label']""
+# "X = df['prompt_text']" and "y = df['best_model_label']".
 
-# For the test_size, we used 0.2 because it allows the model to train on 95% of
+# For the test_size, we used 0.05 because it allows the model to train on 95% of
 # the data and test on 5%. This split seems the most reasonable as we do not
 # have a lot of data available. Thus, we want to maximize the training
 # iterations.
@@ -245,45 +248,55 @@ X_vect = vectorizer.fit_transform(X)
     # scikit-learn documentation. Retrieved April 1, 2025, from
     # https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html​
 
+
 X_train, X_test, y_train, y_test = train_test_split(X_vect, y, test_size = 0.05, random_state = 21)
 
-# Now that the data is fully ready for the training and testing part, we use
-# the Linear Regression to draw a line through our data and enables us to
-# linearise the data. This snippet acts as the initializer for the model.
+
+# The data is now ready to undergo the training and testing part. We are going to
+# use the linear regression to draw a line through our data (linearise
+# the data). This snippet acts as the initializer for the model.
 
 # The source:
     # scikit-learn developers. (n.d.). sklearn.linear_model.LinearRegression.
     # scikit-learn documentation. Retrieved April 1, 2025, from
     # https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html​
 
+
 model = LinearRegression()
 
-# And now that a line has been drawn in our data, we can actually begin the
-# training by making the inputs features (X_train) interact with the target
-# values (y_train). It basically learns the patterns.
+
+# The data has been linearised and is now ready to be trained by making 
+# the input features (X_train) interact with the target values (y_train). 
+# In other words, our model is learning the patterns through model.fit.
 
 #The source:
     # scikit-learn developers. (n.d.). Cross-validation: evaluating estimator
     # performance. scikit-learn documentation. Retrieved April 1, 2025, from
     # https://scikit-learn.org/stable/modules/cross_validation.html​
 
+
 model.fit(X_train, y_train)
 
-# Now that the trained model is ready, we need to try the model on unseen
-# test data. In this case, y_pred is a list of predicted values which the model
-# thinks the correct y values are for each input in X_test.
+
+# The model has now been trained and is ready to be tested on unseen data.
+# For this part, y_pred is a list of predicted values which the model thinks
+# are correct for each input in X_test
 
 #The source:
     # Brownlee, J. (2020, January 10). How to make predictions with
     # scikit-learn. Machine Learning Mastery. Retrieved April 1, 2025, from
     # https://machinelearningmastery.com/make-predictions-scikit-learn/​
 
+
 y_pred = model.predict(X_test)
 
 
-# This following two snippets are testing the quality of the learning of the
-# model. Both snippets are comparing the actual values (y_test) and the
-# predicted values (y_pred).
+# Now, that our data has been tested with the unseen data, one needs to get
+# a feedback on the quality through the MSE and R2. Both snippets 
+# are comparing the actual values (y_test) and the predicted values (y_pred).
+
+# After discussing it with ChatGPT, an MSE of 0.876 and a r2 score of 0.610 are
+# decent results for the amount of data we have. Thus, we can continue to the next step.
 
 # The sources:
     # scikit-learn developers. (n.d.). Mean squared error. In Metrics and
@@ -296,19 +309,21 @@ y_pred = model.predict(X_test)
     # Retrieved April 1, 2025, from
     # https://scikit-learn.org/stable/modules/model_evaluation.html#r2-score
 
-# After discussing it with ChatGPT, an MSE of 0.876 and a r2 score of 0.610 are
-# decent results for the amount of data we have. Thus, we can continue to the next step.
 
 print(mean_squared_error(y_test, y_pred))
 print(r2_score(y_test, y_pred))
 
-# We have completed the training stage for our app.
+
+# The training stage for our model is now complete.
 # Now, one needs to pick the best LLM based on each user's prompt.
 # Thus, we need to use the trained model to predict a score for each LLM.
 
-# We need to import NumPy as we will need it later in our code.
 
-import numpy as np
+
+
+
+
+
 
 # Then, we need to define the list of the LLMs that we are going to be using.
 # The same that we have trained.
