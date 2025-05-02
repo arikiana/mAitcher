@@ -321,21 +321,8 @@ print(r2_score(y_test, y_pred))
 # For this, we need to define the list of the LLMs that we are going to be using.
 # The index of each model is positioned based on its label in the data set.
 
-# Moreover, as we want the user to see how many times each LLM was selected, we
-# need to track the number of times each LLM was selected. Then, this will
-# be displayed in a bar chart.
-
-# The source:
-    # Streamlit, Inc. (n.d.-a). st.session_state. Streamlit documentation. 
-    # Retrieved May 2, 2025, from 
-    # https://docs.streamlit.io/develop/api-reference/caching-and-state/st.session_state
-
 
 llm_classes = ['ChatGPT', 'Claude', 'Gemini', 'Mistral', 'Grok']
-
-
-if 'llm_usage' not in st.session_state:
-    st.session_state.llm_usage = {llm: 0 for llm in llm_classes}
 
 
 # Now, we need to define a function that will return a prompt and provide us
@@ -408,6 +395,23 @@ def select_best_llm(prompt):
     return selected_llm, predicted_label
 
 
+# Moreover, as we want the user to see how many times each LLM was selected, we
+# need to track the number of times each LLM was selected. Then, this will
+# be displayed in a bar chart. Now, we need to update the usage tracker 
+# as the LLM has been selected.
+
+# The source:
+    # Streamlit, Inc. (n.d.-a). st.session_state. Streamlit documentation. 
+    # Retrieved May 2, 2025, from 
+    # https://docs.streamlit.io/develop/api-reference/caching-and-state/st.session_state
+
+
+if 'llm_usage' not in st.session_state:
+    st.session_state.llm_usage = {llm: 0 for llm in llm_classes}
+st.session_state.llm_usage[selected_llm] += 1
+return selected_llm, predicted_label
+
+
 # We are now tackling the last part of our project. We need to connect our code
 # to the model's API to get the answer to our prompt from the selected LLM. 
 # Our code detects which LLM should be called and it sends the prompt's request 
@@ -437,17 +441,6 @@ def call_llm_api(prompt, selected_llm):
     return call_grok(prompt)
   else:
     return "Error: Unknown LLM selected"
-
-
-# Now, we need to update the usage tracker as the LLM has been selected.
-
-# The source:
-    # Streamlit, Inc. (n.d.-a). st.session_state. Streamlit documentation. 
-    # Retrieved May 2, 2025, from 
-    # https://docs.streamlit.io/develop/api-reference/caching-and-state/st.session_state
-
-
-st.session_state.llm_usage[selected_llm] += 1
 
 
 # Now, that the logic pathway has been created, we will write the code that will
