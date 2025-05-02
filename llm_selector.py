@@ -325,8 +325,15 @@ print(r2_score(y_test, y_pred))
 # need to track the number of times each LLM was selected. Then, this will
 # be displayed in a bar chart.
 
+# The source:
+    # Streamlit, Inc. (n.d.-a). st.session_state. Streamlit documentation. 
+    # Retrieved May 2, 2025, from 
+    # https://docs.streamlit.io/develop/api-reference/caching-and-state/st.session_state
+
 
 llm_classes = ['ChatGPT', 'Claude', 'Gemini', 'Mistral', 'Grok']
+
+
 if 'llm_usage' not in st.session_state:
     st.session_state.llm_usage = {llm: 0 for llm in llm_classes}
 
@@ -433,6 +440,11 @@ def call_llm_api(prompt, selected_llm):
 
 
 # Now, we need to update the usage tracker as the LLM has been selected.
+
+# The source:
+    # Streamlit, Inc. (n.d.-a). st.session_state. Streamlit documentation. 
+    # Retrieved May 2, 2025, from 
+    # https://docs.streamlit.io/develop/api-reference/caching-and-state/st.session_state
 
 
 st.session_state.llm_usage[selected_llm] += 1
@@ -635,6 +647,19 @@ def run_from_terminal():
 
 
 # Finally, we need to display the LLM usage chart.
+
+# The sources:
+    # Streamlit, Inc. (n.d.-b). st.bar_chart. Streamlit documentation. 
+    # Retrieved May 2, 2025, from 
+    # https://docs.streamlit.io/develop/api-reference/charts/st.bar_chart
+
+    # Streamlit, Inc. (n.d.-c). Session state: Architecture. 
+    # Streamlit documentation. Retrieved May 2, 2025, from 
+    # https://docs.streamlit.io/develop/concepts/architecture/session-state
+
+    # Streamlit, Inc. (n.d.-d). Chart elements. Streamlit documentation. 
+    # Retrieved May 2, 2025, from 
+    # https://docs.streamlit.io/develop/api-reference/charts
 
 
 st.subheader('LLM Usage Statistics')
