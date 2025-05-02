@@ -399,6 +399,22 @@ llm_classes = ['ChatGPT', 'Claude', 'Gemini', 'Mistral', 'Grok']
     # Retrieved May 2, 2025, from 
     # https://docs.streamlit.io/develop/api-reference/caching-and-state/st.session_state
 
+    # Streamlit, Inc. (n.d.-a). st.session_state. Streamlit documentation. 
+    # Retrieved May 3, 2025, from 
+    # https://docs.streamlit.io/develop/api-reference/caching-and-state/st.session_state
+
+    # Streamlit, Inc. (n.d.-b). Session state: Architecture. 
+    # Streamlit documentation. Retrieved May 3, 2025, from 
+    # https://docs.streamlit.io/develop/concepts/architecture/session-state
+
+    # Python Software Foundation. (n.d.). Dictionaries. 
+    # In The Python Tutorial. Retrieved May 3, 2025, from 
+    # https://docs.python.org/3/tutorial/datastructures.html#dictionaries
+
+    # Python Software Foundation. (n.d.). The return statement. 
+    # In The Python Reference. Retrieved May 3, 2025, from 
+    # https://docs.python.org/3/reference/simple_stmts.html#the-return-statement
+
 
 def select_best_llm(prompt):
     vect_prompt    = vectorizer.transform([prompt])
