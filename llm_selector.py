@@ -318,36 +318,36 @@ print(r2_score(y_test, y_pred))
 # Now, one needs to pick the best LLM based on each user's prompt.
 # Thus, we need to use the trained model to predict a score for each LLM.
 
-
-
-
-
-
-
-
-# Then, we need to define the list of the LLMs that we are going to be using.
-# The same that we have trained.
+# For this, we need to define the list of the LLMs that we are going to be using.
 # The index of each model is positioned based on its label in the data set.
+
 
 llm_classes = ['ChatGPT', 'Claude', 'Gemini', 'Mistral', 'Grok']
 
+
 # Now, we need to define a function that will return a prompt and provide us
-# back with the most adapted model to answer the user's prompt. This function
-# contains 4 parameters. First, 'prompt' is the user's question. Second, 'model'
-# is the trained regression model. Third, 'vectorizer' is the TF-IDF vectorizer
-# used above to transform each prompt into numerical data. Finally, 'llm_classes'
-# is the list of our LLM models.
-# Following this function, we have 5 other dependant functions.
+# back with the most adapted model to answer the user's prompt. 
+
+# The following code snippet is designed to predict and select the best LLM for
+# a given prompt. To do this, we have 5 other dependant functions.
+
 # The first function is 'vect_prompt' which uses the TF-IDF to transform the user's
 # prompt into numerical data based on the vocabulary used during training.
+
 # Second, 'predicted_label' uses the trained model to predict the label based on
 # the prompt. This will give us a float number which represents the regressed
-# estimate of the best LLM for a particular prompt.
-# Third, 'best_index' is rounding the float number to the neares integer. This
+# estimate of the best LLM for a particular prompt. The logic behind this is that 
+# we will get a float number between 0 and 5 from the regression. If one remembers,
+# our list of LLMs goes from 0 to 5. Thus, the float number we get corresponds to the 
+# best fitted LLM to answer the prompt.
+
+# Third, 'best_index' is rounding the float number to the nearest integer. This
 # integer is the position of one of our LLM, meaning this LLM is the most fit
 # to answer this particular prompt.
+
 # Fourth, 'best_llm' uses the integer to retrieve the corresponding name of the
-# best fit LLM from the 'llm_classes' list
+# best fit LLM from the 'llm_classes' list.
+
 # Lastly, 'return' provides us with all the relevant information about our
 # prediction
 
@@ -386,6 +386,7 @@ llm_classes = ['ChatGPT', 'Claude', 'Gemini', 'Mistral', 'Grok']
     # Retrieved April 1, 2025, from
     # https://docs.python.org/3/tutorial/datastructures.html#dictionaries
 
+
 def select_best_llm(prompt):
     vect_prompt    = vectorizer.transform([prompt])
     predicted_label = model.predict(vect_prompt)[0]
@@ -393,16 +394,22 @@ def select_best_llm(prompt):
     selected_llm    = llm_classes[best_index]
     return selected_llm, predicted_label
 
-# Now we are tackling the last part of our project. We need to connect our code
-# to the model's API. So, when the user's sends a prompt, our code detects which
-# LLM should be called and our code sends the prompt's request to the correct
-# LLMs API. Then, the LLM answers the user's prompt and sends the answer back to
-# the user's screen.
-# This part of the code enables us to create a logic pathway of which LLM's API
-# our code needs to contact based on on the integer the user's prompt created.
+
+# We are now tackling the last part of our project. We need to connect our code
+# to the model's API to get the answer to our prompt from the selected LLM. 
+# Our code detects which LLM should be called and it sends the prompt's request 
+# to the correct LLMs API. Then, the LLM answers the user's prompt and sends 
+# the answer back to the user's screen.
+
+# To be able to "call" the correct LLM based on our trained model through its API,
+# we need to create a logic pathway of which LLM's API our code needs 
+# to contact. Our code contatcs the correct API based on the integer the 
+# user's prompt created.
+
 # The logic is the following: if the 'selected_llm' variable is equal to 'LLM',
 # then, it calls the function 'call_llm(prompt)' to send the prompt to the LLM's
-# API. It centralizes the logic for sending prompts to the correct LLM.
+# API. It basically centralizes the logic for sending prompts to the correct LLM.
+
 
 def call_llm_api(prompt, selected_llm):
   if selected_llm == 'ChatGPT':
@@ -418,8 +425,10 @@ def call_llm_api(prompt, selected_llm):
   else:
     return "Error: Unknown LLM selected"
 
-# This part of the code will call OpenAI's ChatGPT API if prompted by the user's
-# prompt. The code is based on OpenAI's own documentation as well as our own
+
+# Now, that the logic pathway has been created, we will write the code that will
+# call OpenAI's ChatGPT API if the float number is nearest to 0 (ChatGPT's place being 0).
+# The code is based on OpenAI's own documentation as well as our own
 # modifications to make the code work in our workflow.
 
 # The sources:
@@ -435,12 +444,9 @@ def call_llm_api(prompt, selected_llm):
     # tutorial. Retrieved April 1, 2025, from
     # https://docs.python.org/3/tutorial/controlflow.html#defining-functions
 
+
 import openai
-import streamlit as st
-
-# Retrieve API key securely from Streamlit secrets
 client = openai.OpenAI(api_key=st.secrets["openai"]["api_key"])
-
 def call_chatgpt(prompt):
     try:
         response = client.chat.completions.create(
@@ -452,6 +458,7 @@ def call_chatgpt(prompt):
         return response.choices[0].message.content
     except Exception as e:
         return f"ChatGPT API error: {str(e)}"
+
 
 # This part of the code will call Claude's API if prompted by the user's prompt.
 # The code is based on Anthropic's own documentation as well as our own
@@ -470,12 +477,9 @@ def call_chatgpt(prompt):
     # Anthropic. (n.d.). Initial setup. Retrieved April 1, 2025,
     # from https://docs.anthropic.com/en/docs/initial-setup
 
+
 import anthropic
-import streamlit as st
-
-# Create an Anthropic client
 claude_client = anthropic.Anthropic(api_key=st.secrets["anthropic"]["claude_api_key"])
-
 def call_claude(prompt: str) -> str:
     try:
         response = claude_client.messages.create(
@@ -488,6 +492,7 @@ def call_claude(prompt: str) -> str:
         return response.content[0].text
     except Exception as e:
         return f"Claude API error: {e}"
+
 
 # This part of the code will call Gemini's API if prompted by the user's prompt.
 # The code is based on Google's own documentation as well as our own
@@ -506,6 +511,7 @@ def call_claude(prompt: str) -> str:
     # Google. (n.d.). Gemini API available regions. Retrieved April 1, 2025,
     # from https://ai.google.dev/gemini-api/docs/available-regions
 
+
 import google.generativeai as genai
 from google.generativeai import GenerativeModel
 genai.configure(api_key = "AIzaSyBbsMHZTSKv2BF4Rw2KOMWeHcb4RtWzZiA")
@@ -517,6 +523,7 @@ def call_gemini(prompt):
     except Exception as e:
         return f"Gemini API error: {str(e)}"
 
+
 # This part of the code will call Mistral's API if prompted by the user's prompt.
 # The code is based on Mistral's own documentation as well as our own
 # modifications to make the code work in our workflow.
@@ -527,6 +534,7 @@ def call_gemini(prompt):
 
     # Mistral AI. (n.d.). Mistral AI API.
     # Retrieved April 1, 2025, from https://docs.mistral.ai/api/
+
 
 from mistralai import Mistral
 mistral_client = Mistral(api_key = "vJQyWusvYsujsVZDZZiUjaSLDjbV8H4C")
@@ -542,23 +550,24 @@ def call_mistral(prompt: str) -> str:
             model = "mistral-small",
             messages = [{"role": "user", "content": prompt}],
         )
-        
+
+
 # This part of the code will call XAI's API if prompted by the user's prompt.
 # The code is based on OpenAI's own documentation and xAI's own documentation
-# as well as our own modifications to make the code work in our workflow.
+# as well as our own modifications to make the code work in our workflow. xAI
+# still relies on OpenAI's infrastructure to use its API in Python.
 
 # The sources:
     # moesmufti. (n.d.). xai_grok_sdk [Computer software].
     # GitHub. Retrieved April 1, 2025, from
     # https://github.com/moesmufti/xai_grok_sdk
 
-from openai import OpenAI
 
+from openai import OpenAI
 client = OpenAI(
     api_key = "xai-eQkIynQcrNUXG5CN1WskQnn9hcegTV1PqDSHb2k0Rb4NOq9dSVhx4kDITUx7WKXte7uENQcoGFzZaOO5",
     base_url = "https://api.x.ai/v1"
 )
-
 def call_grok(prompt: str) -> str:
     try:
         resp = client.chat.completions.create(
@@ -569,15 +578,21 @@ def call_grok(prompt: str) -> str:
     except Exception as e:
         return f"Grok error: {e}"
 
-# Now, we want to be able to retrieve the user's prompt.
-# First, we want to get the user's prompt with 'prompt'
-# Second, we call our 'select_best_llm' which runs the 4 parameters.
-# Finally, we display the result of the user's query as well as the selected LLM.
-# This result comes from our call_llm_api which calls the correct API and brings
-# the correct answer back to the user's screen.
-# It is important to note that for both 'print' functions, we need to use
-# an f-string to allow variable interpolation. This means that we can insert
-# the value of a variable directly into a string.
+
+# Now, we want to be able to retrieve the user's prompt, have the best fitted
+# LLM to handle that prompt, call that LLM via its API, and display its response.
+
+# First, we want to get the user's prompt with 'prompt'.
+# Second, we call 'select_best_llm' to return the name of the best model.
+# Third, we display the selected LLM and the numeric output (the float number).
+# Fourth, 'llm_response' sends the prompt to the selected API.
+# Finally, the code prints the answer of the LLM.
+
+# After several hours of running into the issue of not being to 
+# evaluate the variable names in the LLM's code part, we 
+# discovered the existence of the f-strings and their necessity
+# at that stage. This means that we can insert the value of a 
+# variable directly into a string.
 
 # The sources:
     # Python Software Foundation. (n.d.). input. In Built-in functions.
@@ -595,6 +610,7 @@ def call_grok(prompt: str) -> str:
     # Python Software Foundation. (n.d.). Defining functions. In The Python
     # tutorial. Retrieved April 1, 2025, from
     # https://docs.python.org/3/tutorial/controlflow.html#defining-functions
+
 
 def run_from_terminal():
     prompt = input("Write your prompt: ")
