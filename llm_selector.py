@@ -321,8 +321,14 @@ print(r2_score(y_test, y_pred))
 # For this, we need to define the list of the LLMs that we are going to be using.
 # The index of each model is positioned based on its label in the data set.
 
+# Moreover, as we want the user to see how many times each LLM was selected, we
+# need to track the number of times each LLM was selected. Then, this will
+# be displayed in a bar chart.
+
 
 llm_classes = ['ChatGPT', 'Claude', 'Gemini', 'Mistral', 'Grok']
+if 'llm_usage' not in st.session_state:
+    st.session_state.llm_usage = {llm: 0 for llm in llm_classes}
 
 
 # Now, we need to define a function that will return a prompt and provide us
@@ -424,6 +430,12 @@ def call_llm_api(prompt, selected_llm):
     return call_grok(prompt)
   else:
     return "Error: Unknown LLM selected"
+
+
+# Now, we need to update the usage tracker as the LLM has been selected.
+
+
+st.session_state.llm_usage[selected_llm] += 1
 
 
 # Now, that the logic pathway has been created, we will write the code that will
@@ -621,5 +633,12 @@ def run_from_terminal():
     llm_response = call_llm_api(prompt, result['selected_llm'])
     print("\nLLM Response:\n", llm_response)
 
+
+# Finally, we need to display the LLM usage chart.
+
+
+st.subheader('LLM Usage Statistics')
+usage_df = pd.dataframe.from_dict(st.session_state.llm_usage, orient = 'index', columns = ['Count'])
+st.bar_chart(usage_df)
 
 
