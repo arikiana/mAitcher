@@ -14,7 +14,14 @@ if 'llm_usage' not in st.session_state:
     st.session_state.llm_usage = {llm: 0 for llm in llm_classes}
 
 
-user_prompt = st.text_input("Enter your prompt:")
+if st.button("Submit"):
+    with st.spinner("Selecting best LLM..."):
+        selected_llm, predicted_label = select_best_llm(prompt)
+        st.success(f"✅ Selected LLM: {selected_llm} (score: {predicted_label:.2f})")
+ 
+        response = call_llm_api(prompt, selected_llm)
+        st.markdown("### 🤖 Response")
+        st.write(response)
 
 
 if user_prompt:
@@ -35,19 +42,7 @@ prompt = st.text_area("Enter your prompt:", height=150)
  
 
 
-if st.button("Submit"):
-    with st.spinner("Selecting best LLM..."):
-        selected_llm, predicted_label = select_best_llm(prompt)
-        st.success(f"✅ Selected LLM: {selected_llm} (score: {predicted_label:.2f})")
- 
-        response = call_llm_api(prompt, selected_llm)
-        st.markdown("### 🤖 Response")
-        st.write(response)
 
-
-
-tab1.subheader("Most popular AI-models")
-tab1.text('We have tracked the most frequent matches between what our users search for and the different AIs. All relevant information can be found in the chart below:')
 
 
 
