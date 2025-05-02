@@ -654,7 +654,11 @@ def run_from_terminal():
 
 
 st.subheader('LLM Usage Statistics')
-usage_df = pd.dataframe.from_dict(st.session_state.llm_usage, orient = 'index', columns = ['Count'])
+usage_df = pd.dataframe.from_dict(
+    st.session_state.llm_usage, 
+    orient = 'index', 
+    columns = ['Count']
+)
 st.bar_chart(usage_df)
 
 
