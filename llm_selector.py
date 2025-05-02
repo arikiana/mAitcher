@@ -652,13 +652,3 @@ def run_from_terminal():
     # Retrieved May 2, 2025, from 
     # https://docs.streamlit.io/develop/api-reference/charts
 
-
-st.subheader('LLM Usage Statistics')
-usage_df = pd.DataFrame.from_dict(
-    st.session_state.llm_usage, 
-    orient = 'index', 
-    columns = ['Count']
-)
-st.bar_chart(usage_df)
-
-
