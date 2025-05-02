@@ -399,10 +399,6 @@ llm_classes = ['ChatGPT', 'Claude', 'Gemini', 'Mistral', 'Grok']
     # Retrieved May 2, 2025, from 
     # https://docs.streamlit.io/develop/api-reference/caching-and-state/st.session_state
 
-    # Streamlit, Inc. (n.d.-a). st.session_state. Streamlit documentation. 
-    # Retrieved May 3, 2025, from 
-    # https://docs.streamlit.io/develop/api-reference/caching-and-state/st.session_state
-
     # Streamlit, Inc. (n.d.-b). Session state: Architecture. 
     # Streamlit documentation. Retrieved May 3, 2025, from 
     # https://docs.streamlit.io/develop/concepts/architecture/session-state
@@ -655,20 +651,4 @@ def run_from_terminal():
 
     llm_response = call_llm_api(prompt, result['selected_llm'])
     print("\nLLM Response:\n", llm_response)
-
-
-# Finally, we need to display the LLM usage chart.
-
-# The sources:
-    # Streamlit, Inc. (n.d.-b). st.bar_chart. Streamlit documentation. 
-    # Retrieved May 2, 2025, from 
-    # https://docs.streamlit.io/develop/api-reference/charts/st.bar_chart
-
-    # Streamlit, Inc. (n.d.-c). Session state: Architecture. 
-    # Streamlit documentation. Retrieved May 2, 2025, from 
-    # https://docs.streamlit.io/develop/concepts/architecture/session-state
-
-    # Streamlit, Inc. (n.d.-d). Chart elements. Streamlit documentation. 
-    # Retrieved May 2, 2025, from 
-    # https://docs.streamlit.io/develop/api-reference/charts
 
