@@ -25,6 +25,7 @@ tab1.text('We have tracked the most frequent matches between what our users sear
 
 
 llm_classes = ['ChatGPT', 'Claude', 'Gemini', 'Mistral', 'Grok']
+user_prompt = st.text_input("Enter your prompt:")
 if 'llm_usage' not in st.session_state:
     st.session_state.llm_usage = {llm: 0 for llm in llm_classes}
 
