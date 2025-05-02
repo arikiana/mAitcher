@@ -1,22 +1,26 @@
 # Our app project is to provide the end-user with one interface connected to
 # the API of 5 LLMs (ChatGPT, Claude, Gemini, Le Chat, and Grok).
 
-# The user writes a prompt and our regressive machine learning model will
+# The user writes a prompt and our linear regression machine learning model will
 # analyze it and choose the best-fitted LLM to answer it.
 
-# The app will then -through the chosen LLM's API- get the answer and shows
-# it to the user.
+# The app will then -through the chosen LLM's API- get and show the answer
+# to the user.
+
+# -------------------
 
 # After extensive research on how to work with the dataset, we chose to create
 # a .csv file in Excel which contains 4 categories of 10 prompts each.
 
 # Each LLM received each prompt and we graded their answer on a scale from 0
 # (worst) to 10 (best). We also created a column which indicates -in the
-# integer form- which LLM gave the best answer and, thus is best fitted to
+# integer form- which LLM gave the best answer and thus, is best fitted to
 # provide future answer on similar prompts.
 
-# The integer list is as follows: ChatGPT is 0, Claude is 1, Gemini is 2,
+# The LLMs are listed as follows: ChatGPT is 0, Claude is 1, Gemini is 2,
 # Le Chat is 3, and Grok is 4.
+
+# As the app is developped in Streamlit, we need to import it in our code.
 
 # Once the .csv file was done, we made some extensive research to find the right
 # Python library to work with our tabular dataset. We found out it is the Pandas
@@ -27,6 +31,8 @@
     # Retrieved April 1, 2025, from
     # https://pandas.pydata.org/docs/getting_started/index.html#getting-started​
 
+
+import streamlit as st
 import pandas as pd
 
 
@@ -34,7 +40,7 @@ import pandas as pd
 # This can be done through Pandas' dataframe which we named -by convention- df.
 
 # df then needs to interact with pd.read_csv to access our .csv file which is
-# named "prompts.csv"
+# named "prompts.csv". It will read the .csv file into a DataFrame.
 
 # The sources:
     # pandas development team. (n.d.). pandas.read_csv.
@@ -45,24 +51,23 @@ import pandas as pd
     # Retrieved April 1, 2025, from
     # https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html​
 
+
 df = pd.read_csv("prompts.csv")
 
 
-# We then ran into the issue that only the first five columns of the .csv file
+# Then, we ran into the issue that only the first five columns of the .csv file
 # were showing. Thus, after a quick glance on internet, we found that we needed
 # to use the IPython library and its display module. This would then enable us
-# to use display to show the entire .csv file.
+# to use the display function to show the entire .csv file.
 
 # The source:
     # IPython development team. (n.d.). IPython.display.display. IPython
     # documentation. Retrieved April 1, 2025, from
     # https://ipython.readthedocs.io/en/8.26.0/api/generated/IPython.display.html
 
-import streamlit as st
-import pandas as pd
 
-df= pd.read_csv("prompts.csv")
-st.dataframe(df)
+
+
 
 # We know need to train our model on our data set. After some research, it
 # appeared that the sklearn library would be best to train our model.
