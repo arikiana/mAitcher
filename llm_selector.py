@@ -351,6 +351,11 @@ llm_classes = ['ChatGPT', 'Claude', 'Gemini', 'Mistral', 'Grok']
 # Lastly, 'return' provides us with all the relevant information about our
 # prediction
 
+# Moreover, as we want the user to see how many times each LLM was selected, we
+# need to track the number of times each LLM was selected. Then, this will
+# be displayed in a bar chart. Now, we need to update the usage tracker 
+# as the LLM has been selected.
+
 # The sources:
     # Python Software Foundation. (n.d.). More on lists. In The Python tutorial.
     # Retrieved April 1, 2025, from
@@ -386,6 +391,10 @@ llm_classes = ['ChatGPT', 'Claude', 'Gemini', 'Mistral', 'Grok']
     # Retrieved April 1, 2025, from
     # https://docs.python.org/3/tutorial/datastructures.html#dictionaries
 
+    # Streamlit, Inc. (n.d.-a). st.session_state. Streamlit documentation. 
+    # Retrieved May 2, 2025, from 
+    # https://docs.streamlit.io/develop/api-reference/caching-and-state/st.session_state
+
 
 def select_best_llm(prompt):
     vect_prompt    = vectorizer.transform([prompt])
@@ -394,22 +403,11 @@ def select_best_llm(prompt):
     selected_llm    = llm_classes[best_index]
     return selected_llm, predicted_label
 
-
-# Moreover, as we want the user to see how many times each LLM was selected, we
-# need to track the number of times each LLM was selected. Then, this will
-# be displayed in a bar chart. Now, we need to update the usage tracker 
-# as the LLM has been selected.
-
-# The source:
-    # Streamlit, Inc. (n.d.-a). st.session_state. Streamlit documentation. 
-    # Retrieved May 2, 2025, from 
-    # https://docs.streamlit.io/develop/api-reference/caching-and-state/st.session_state
-
-
-if 'llm_usage' not in st.session_state:
-    st.session_state.llm_usage = {llm: 0 for llm in llm_classes}
-st.session_state.llm_usage[selected_llm] += 1
-return selected_llm, predicted_label
+    
+    if 'llm_usage' not in st.session_state:
+        st.session_state.llm_usage = {llm: 0 for llm in llm_classes}
+    st.session_state.llm_usage[selected_llm] += 1
+    return selected_llm, predicted_label
 
 
 # We are now tackling the last part of our project. We need to connect our code
