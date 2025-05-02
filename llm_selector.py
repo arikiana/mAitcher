@@ -1,3 +1,7 @@
+# Used ChatGPT to help guide the writing and correction of the following code
+
+# -------------------
+
 # Our app project is to provide the end-user with one interface connected to
 # the API of 5 LLMs (ChatGPT, Claude, Gemini, Le Chat, and Grok).
 
@@ -406,8 +410,8 @@ def select_best_llm(prompt):
     
     if 'llm_usage' not in st.session_state:
         st.session_state.llm_usage = {llm: 0 for llm in llm_classes}
-    st.session_state.llm_usage[selected_llm] += 1
-    return selected_llm, predicted_label
+    st.session_state.llm_usage[choice] += 1
+    return choice, pred
 
 
 # We are now tackling the last part of our project. We need to connect our code
