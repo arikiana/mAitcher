@@ -10,10 +10,10 @@ st.set_page_config(
 )
 
 
-st.title("Nice to see you! Ready to be mAitched?") #Funktion aus der Streamlit Documentation zur Hervorhebung des Titels
+st.title("Nice to see you! Ready to be mAitched?") # Funktion aus der Streamlit Documentation zur Hervorhebung des Titels
 
 
-tab1, tab2 = st.tabs(["Welcome to mAItcher", "Explore AI Models"]) #zur Übersichtlichkeit wird die Homepage auf zwei Tabs aufgeteilt, Funktion aus Streamlit Documentation
+tab1, tab2 = st.tabs(["Welcome to mAItcher", "Explore AI Models"]) # zur Übersichtlichkeit wird die Homepage auf zwei Tabs aufgeteilt, Funktion aus Streamlit Documentation
 
 # mit markdown wurde die Farbe der Texte sowie deren Format weiter verändert, um die Lesbarkeit des Textes zu steigern und wichtige Elemente hervorzuheben (aus Streamlit Documentation)
 with tab1:
@@ -28,7 +28,7 @@ with tab1:
         "pages/mAitcher.py",
         label="Click here to get started",
         icon="💫"
-    ) #button, der einen direkt mit dem chatbot verbindet
+    ) # button, der einen direkt mit dem chatbot verbindet
 
 # um bei einer Präferenz für einzelne Ai-Platformen direkt darauf zugreifen zu können, werden die verwendeten Modelle separat verlinkt
 with tab2:
