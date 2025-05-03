@@ -3,7 +3,7 @@
 
 import streamlit as st
 
-
+# zur Konfiguration auf streamlit 
 st.set_page_config(
     page_title="mAItcher Welcome",
     layout="wide"
