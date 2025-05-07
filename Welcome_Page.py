@@ -9,11 +9,16 @@ st.set_page_config(
     layout="wide"
 )
 
+# Quellen:
+    # Streamlit. (o.D.). st.set_page_config. Streamlit documentation. Agerufen am 3. Mai, 2025, von https://docs.streamlit.io/develop/api-reference/configuration/st.set_page_config 
 
-st.title("Nice to see you! Ready to be mAitched?") # Funktion aus der Streamlit Documentation zur Hervorhebung des Titels
 
+st.title("Nice to see you! Ready to be mAitched?") # Funktion zur Hervorhebung des Titels
 
-tab1, tab2 = st.tabs(["Welcome to mAItcher", "Explore AI Models"]) # zur Übersichtlichkeit wird die Homepage auf zwei Tabs aufgeteilt, Funktion aus Streamlit Documentation
+# Quellen:
+    # Streamlit. (o.D.). st.title. Streamlit documentation. Abgerufen am 3. Mai, 2025, von https://docs.streamlit.io/develop/api-reference/text/st.title
+
+tab1, tab2 = st.tabs(["Welcome to mAItcher", "Explore AI Models"]) # zur Übersichtlichkeit wird die Homepage auf zwei Tabs aufgeteilt
 
 # mit markdown wurde die Farbe der Texte sowie deren Format weiter verändert, um die Lesbarkeit des Textes zu steigern und wichtige Elemente hervorzuheben (aus Streamlit Documentation)
 with tab1:
