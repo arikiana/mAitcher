@@ -26,9 +26,9 @@ import numpy as np # Wird ebenfalls für den Code benötigt.
 df = pd.read_csv("prompts.csv") # Um mit unserem .csv File (Namens "prompts.csv) zu interagieren, wird über die Pandas Dataframe (pd) Funktion pd.read_csv auf das .csv zugegriffen und in ein df eingelesen.
 
  # Quellen:
-    # pandas development team. (o.D.). pandas.read_csv. pandas documentation. Abgerufen am 1. April, 2025, von https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html
+    # pandas development team. (o.D. –a). pandas.read_csv. pandas documentation. Abgerufen am 1. April, 2025, von https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html
     # IPython development team. (o.D.). IPython.display.display. IPython documentation. Abgerufen am 1. April, 2025, von https://ipython.readthedocs.io/en/8.26.0/api/generated/IPython.display.html
-    # pandas development team. (o.D.). pandas.DataFrame. pandas documentation. Abgerufen am 1. April, 2025, von https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html​
+    # pandas development team. (o.D. –b). pandas.DataFrame. pandas documentation. Abgerufen am 1. April, 2025, von https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html​
 
 
 # Um unser Modell auf unserem Dataset zu trainieren, haben wir uns nach einiger Recherche für die sklearn Library entschieden.
@@ -37,8 +37,8 @@ from sklearn.model_selection import train_test_split # Unser Dataset wird mittel
 
 # Quellen:
     # Google Developers. (o.D.). Dividing the original dataset. In Machine Learning Crash Course. Abgerufen am 1. April, 2025, von https://developers.google.com/machine-learning/crash-course/overfitting/dividing-datasets​
-    # scikit-learn developers. (o.D.). Computing cross-validated metrics. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/cross_validation.html#computing-cross-validated-metrics​
-    # scikit-learn developers. (o.D.). sklearn.model_selection.train_test_split. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html​
+    # scikit-learn developers. (o.D. –a). Computing cross-validated metrics. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/cross_validation.html#computing-cross-validated-metrics​
+    # scikit-learn developers. (o.D. –b). sklearn.model_selection.train_test_split. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html​
 
 
 # Da Machine Learning nicht in der Art mit Text umgehen kann, in welcher wir beabsichtigten, mussten wir den TF-idf Vectorizer importieren. 
@@ -46,8 +46,8 @@ from sklearn.model_selection import train_test_split # Unser Dataset wird mittel
 from sklearn.feature_extraction.text import TfidfVectorizer # Wandelt den Text in numerische Vektoren um, damit unser Modell die Daten, mit welchen es trainiert, versteht. 
 
 # Quellen:
-    # scikit-learn developers. (o.D.). Text feature extraction. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/feature_extraction.html#text-feature-extraction
-    # scikit-learn developers. (o.D.). sklearn.feature_extraction.text.TfidfVectorizer. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html
+    # scikit-learn developers. (o.D. –a). Text feature extraction. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/feature_extraction.html#text-feature-extraction
+    # scikit-learn developers. (o.D. –b). sklearn.feature_extraction.text.TfidfVectorizer. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html
     # Masudowolabi. (2024, 10. Juni). How to use sklearn’s TfidfVectorizer for text feature extraction in model testing. Medium. Abgerufen am 1. April, 2025, von https://medium.com/@masudowolabi/how-to-use-sklearns-tfidfvectorizer-for-text-feature-extraction-in-model-testing-e1221fd274f8
 
 
@@ -57,9 +57,9 @@ from sklearn.feature_extraction.text import TfidfVectorizer # Wandelt den Text i
 from sklearn.linear_model import LinearRegression
 
 # Quellen:
-    # scikit-learn developers. (o.D.). Linear models. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/linear_model.html​
-    # scikit-learn developers. (o.D.). sklearn.ensemble.RandomForestClassifier. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html​
-    # scikit-learn developers. (o.D.). sklearn.linear_model.LinearRegression. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html
+    # scikit-learn developers. (o.D. –a). Linear models. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/linear_model.html​
+    # scikit-learn developers. (o.D. –b). sklearn.ensemble.RandomForestClassifier. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html​
+    # scikit-learn developers. (o.D. –c). sklearn.linear_model.LinearRegression. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html
 
 
 # Ein Feedback Loop zur Bewertung der Qualität unserer Daten wurde mittels Mean Squared Error (MSE = durchschnittlicher Fehler zwischen dem predicted und dem actial value) und R2 (wie sehr erklärt unser Modell die Variabilität in der Zielvariable) erstellt.
@@ -68,10 +68,10 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
 
 #Quellen:
-    # scikit-learn developers. (o.D.). sklearn.metrics.mean_squared_error. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_squared_error.html
-    # scikit-learn developers. (o.D.). Mean squared error. In Metrics and scoring: Quantifying the quality of predictions. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/model_evaluation.html#mean-squared-error
-    # scikit-learn developers. (o.D.). sklearn.metrics.r2_score. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/generated/sklearn.metrics.r2_score.html
-    # scikit-learn developers. (o.D.). R² score. In Metrics and scoring: Quantifying the quality of predictions. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/model_evaluation.html#r2-score
+    # scikit-learn developers. (o.D. –a). sklearn.metrics.mean_squared_error. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_squared_error.html
+    # scikit-learn developers. (o.D. –b). Mean squared error. In Metrics and scoring: Quantifying the quality of predictions. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/model_evaluation.html#mean-squared-error
+    # scikit-learn developers. (o.D. –c). sklearn.metrics.r2_score. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/generated/sklearn.metrics.r2_score.html
+    # scikit-learn developers. (o.D. –d). R² score. In Metrics and scoring: Quantifying the quality of predictions. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/model_evaluation.html#r2-score
 
 
 X = df['prompt_text'] # Extrahiert die Input Features, mit denen das Modell lernt.
@@ -122,8 +122,8 @@ print(mean_squared_error(y_test, y_pred)) # Gibt den MSE als Feedback für das M
 print(r2_score(y_test, y_pred)) # Gibt R2 als Feedback für das Modell zurück.
 
 # Quellen:
-    # scikit-learn developers. (o.D.). Mean squared error. In Metrics and scoring: quantifying the quality of predictions. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/model_evaluation.html#mean-squared-error
-    # scikit-learn developers. (o.D.). R² score. In Metrics and scoring: quantifying the quality of predictions. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/model_evaluation.html#r2-score
+    # scikit-learn developers. (o.D. –a). Mean squared error. In Metrics and scoring: quantifying the quality of predictions. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/model_evaluation.html#mean-squared-error
+    # scikit-learn developers. (o.D. –b). R² score. In Metrics and scoring: quantifying the quality of predictions. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/model_evaluation.html#r2-score
 
 # Nach einer Unterhaltung mit ChatGPT, entschieden wir, dass ein MSE von 0.876 und ein R2 von 0.610 genügend sind, gegeben der Menge an zur Verfügung stehenden Daten.
 # Das Modell wird nun also benutzt, um einen Score für jedes LLM zu berechnen.
@@ -150,15 +150,15 @@ def select_best_llm(prompt): # Gibt dem User-prompt die Antwort des besten LLM z
     # Python Software Foundation. (o.D.). More on lists. In The Python tutorial. Abgerufen am 1. April, 2025, von https://docs.python.org/3/tutorial/datastructures.html#more-on-lists​
     # NumPy developers. (o.D.). What is NumPy?. NumPy documentation. Abgerufen am 1. April, 2025, von https://numpy.org/devdocs/user/whatisnumpy.html​
     # Python Software Foundation. (o.D.). Defining functions. In The Python tutorial. Abgerufen am 1. April, 2025, von https://docs.python.org/3/tutorial/controlflow.html#defining-functions
-    # scikit-learn developers. (o.D.). sklearn.feature_extraction.text.TfidfVectorizer. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html
-    # scikit-learn developers. (o.D.). sklearn.linear_model.LinearRegression.predict. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html#sklearn.linear_model.LinearRegression.predict
-    # Python Software Foundation. (o.D.). round. In Built-in functions. Abgerufen am 1. April, 2025, von https://docs.python.org/3/library/functions.html#round
-    # Python Software Foundation. (o.D.). Lists. In An informal introduction to Python. Abgerufen am 1. April, 2025, von https://docs.python.org/3/tutorial/introduction.html#lists
-    # Python Software Foundation. (o.D.). Dictionaries. In Data structures. Abgerufen am 1. April, 2025, von https://docs.python.org/3/tutorial/datastructures.html#dictionaries
+    # scikit-learn developers. (o.D. –a). sklearn.feature_extraction.text.TfidfVectorizer. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html
+    # scikit-learn developers. (o.D. –b). sklearn.linear_model.LinearRegression.predict. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html#sklearn.linear_model.LinearRegression.predict
+    # Python Software Foundation. (o.D. –a). round. In Built-in functions. Abgerufen am 1. April, 2025, von https://docs.python.org/3/library/functions.html#round
+    # Python Software Foundation. (o.D. –b). Lists. In An informal introduction to Python. Abgerufen am 1. April, 2025, von https://docs.python.org/3/tutorial/introduction.html#lists
+    # Python Software Foundation. (o.D. –c). Dictionaries. In Data structures. Abgerufen am 1. April, 2025, von https://docs.python.org/3/tutorial/datastructures.html#dictionaries
     # Streamlit, Inc. (o.D.-a). st.session_state. Streamlit documentation. Abgerufen am 2. Mai, 2025, von https://docs.streamlit.io/develop/api-reference/caching-and-state/st.session_state
     # Streamlit, Inc. (o.D.-b). Session state: Architecture. Streamlit documentation. Abgerufen am 3. Mai, 2025, von https://docs.streamlit.io/develop/concepts/architecture/session-state
-    # Python Software Foundation. (o.D.). Dictionaries. In The Python Tutorial. Abgerufen am 3. Mai, 2025, von https://docs.python.org/3/tutorial/datastructures.html#dictionaries
-    # Python Software Foundation. (o.D.). The return statement. In The Python Reference. Abgerufen am 3. Mai, 2025, von https://docs.python.org/3/reference/simple_stmts.html#the-return-statement
+    # Python Software Foundation. (o.D. –a). Dictionaries. In The Python Tutorial. Abgerufen am 3. Mai, 2025, von https://docs.python.org/3/tutorial/datastructures.html#dictionaries
+    # Python Software Foundation. (o.D. –b). The return statement. In The Python Reference. Abgerufen am 3. Mai, 2025, von https://docs.python.org/3/reference/simple_stmts.html#the-return-statement
 
 
 # Grund-Funktion, um den Prompt an das richtige LLM zu senden:
@@ -193,8 +193,8 @@ def call_chatgpt(prompt):
         return f"ChatGPT API error: {str(e)}"
 
 # Quellen:
-    # OpenAI. (o.D.). OpenAI Python library. OpenAI API documentation. Abgerufen am 1. April, 2025, von https://platform.openai.com/docs/libraries/python-library?language=python
-    # OpenAI. (o.D.). Step 2: Set up your API key. OpenAI API documentation. Abgerufen am 1. April, 2025, von https://platform.openai.com/docs/quickstart/step-2-set-up-your-api-key?api-mode=responses
+    # OpenAI. (o.D. –a). OpenAI Python library. OpenAI API documentation. Abgerufen am 1. April, 2025, von https://platform.openai.com/docs/libraries/python-library?language=python
+    # OpenAI. (o.D. –b). Step 2: Set up your API key. OpenAI API documentation. Abgerufen am 1. April, 2025, von https://platform.openai.com/docs/quickstart/step-2-set-up-your-api-key?api-mode=responses
     # Python Software Foundation. (o.D.). Defining functions. In The Python tutorial. Abgerufen am 1. April, 2025, von https://docs.python.org/3/tutorial/controlflow.html#defining-functions
 
 
@@ -215,10 +215,10 @@ def call_claude(prompt: str) -> str:
         return f"Claude API error: {e}"
 
 # Quellen:
-    # Anthropic. (o.D.). Anthropic documentation. Abgerufen am 1. April, 2025, von https://docs.anthropic.com/en/home
-    # Anthropic. (o.D.). Messages API. Abgerufen am 1. April, 2025, von https://docs.anthropic.com/en/api/messages
-    # Anthropic. (o.D.). Getting started. Abgerufen am 1. April, 2025, von https://docs.anthropic.com/en/api/getting-started
-    # Anthropic. (o.D.). Initial setup. Abgerufen am 1. April, 2025, von https://docs.anthropic.com/en/docs/initial-setup
+    # Anthropic. (o.D. –a). Anthropic documentation. Abgerufen am 1. April, 2025, von https://docs.anthropic.com/en/home
+    # Anthropic. (o.D. –b). Messages API. Abgerufen am 1. April, 2025, von https://docs.anthropic.com/en/api/messages
+    # Anthropic. (o.D. –c). Getting started. Abgerufen am 1. April, 2025, von https://docs.anthropic.com/en/api/getting-started
+    # Anthropic. (o.D. –d). Initial setup. Abgerufen am 1. April, 2025, von https://docs.anthropic.com/en/docs/initial-setup
 
 
 # Funktion zum Abruf der API von Gemini. Hierfür wurde die Dokumentation von Google verwendet und angepasst:
@@ -234,10 +234,10 @@ def call_gemini(prompt):
         return f"Gemini API error: {str(e)}"
 
 # Quellen:
-    # Google. (o.D.). Gemini API documentation. Abgerufen am 1. April, 2025, von from https://ai.google.dev/gemini-api/docs
-    # Google. (o.D.). Gemini API quickstart. Abgerufen am 1. April, 2025, von from https://ai.google.dev/gemini-api/docs/quickstart
-    # Google. (o.D.). Gemini models. Abgerufen am 1. April, 2025, von from https://ai.google.dev/gemini-api/docs/models
-    # Google. (o.D.). Gemini API available regions. Abgerufen am 1. April, 2025, von https://ai.google.dev/gemini-api/docs/available-regions
+    # Google. (o.D. –a). Gemini API documentation. Abgerufen am 1. April, 2025, von from https://ai.google.dev/gemini-api/docs
+    # Google. (o.D. –b). Gemini API quickstart. Abgerufen am 1. April, 2025, von from https://ai.google.dev/gemini-api/docs/quickstart
+    # Google. (o.D. –c). Gemini models. Abgerufen am 1. April, 2025, von from https://ai.google.dev/gemini-api/docs/models
+    # Google. (o.D. –d). Gemini API available regions. Abgerufen am 1. April, 2025, von https://ai.google.dev/gemini-api/docs/available-regions
 
 
 
@@ -258,8 +258,8 @@ def call_mistral(prompt: str) -> str:
         )
 
 # Quellen:
-    # Mistral AI. (o.D.). Mistral AI documentation. Abgerufen am 1. April, 2025, von https://docs.mistral.ai/
-    # Mistral AI. (o.D.). Mistral AI API. Abgerufen am 1. April, 2025, von https://docs.mistral.ai/api/
+    # Mistral AI. (o.D. –a). Mistral AI documentation. Abgerufen am 1. April, 2025, von https://docs.mistral.ai/
+    # Mistral AI. (o.D. –b). Mistral AI API. Abgerufen am 1. April, 2025, von https://docs.mistral.ai/api/
 
 
 # Funktion zum Abruf der API von XAI. Hierfür wurde die Dokumentation von OpenAI und xAI verwendet und angepasst. xAIs API braucht die Struktur von OpenAI um in Python verwendet werden zu können:
@@ -293,7 +293,7 @@ def run_from_terminal():
     print("\nLLM Response:\n", llm_response)
 
 # Quellen:
-    # Python Software Foundation. (o.D.). input. In Built-in functions. Abgerufen am 1. April, 2025, von https://docs.python.org/3/library/functions.html#input
-    # Python Software Foundation. (o.D.). Formatted string literals. In Lexical analysis. Abgerufen am 1. April, 2025, von https://docs.python.org/3/reference/lexical_analysis.html#f-strings
-    # Python Software Foundation. (o.D.). Dictionaries. In Data structures. Abgerufen am 1. April, 2025, von https://docs.python.org/3/tutorial/datastructures.html#dictionaries
-    # Python Software Foundation. (o.D.). Defining functions. In The Python tutorial. Abgerufen am 1. April, 2025, von https://docs.python.org/3/tutorial/controlflow.html#defining-functions
+    # Python Software Foundation. (o.D. –a). input. In Built-in functions. Abgerufen am 1. April, 2025, von https://docs.python.org/3/library/functions.html#input
+    # Python Software Foundation. (o.D. –b). Formatted string literals. In Lexical analysis. Abgerufen am 1. April, 2025, von https://docs.python.org/3/reference/lexical_analysis.html#f-strings
+    # Python Software Foundation. (o.D. –c). Dictionaries. In Data structures. Abgerufen am 1. April, 2025, von https://docs.python.org/3/tutorial/datastructures.html#dictionaries
+    # Python Software Foundation. (o.D. –d). Defining functions. In The Python tutorial. Abgerufen am 1. April, 2025, von https://docs.python.org/3/tutorial/controlflow.html#defining-functions
