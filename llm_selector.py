@@ -1,448 +1,168 @@
-# Used ChatGPT to help guide the writing and correction of the following code
-
-# -------------------
-
-# Our app project is to provide the end-user with one interface connected to
-# the API of 5 LLMs (ChatGPT, Claude, Gemini, Le Chat, and Grok).
-
-# The user writes a prompt and our linear regression machine learning model will
-# analyze it and choose the best-fitted LLM to answer it.
-
-# The app will then -through the chosen LLM's API- get and show the answer
-# to the user.
-
-# -------------------
-
-# After extensive research on how to work with the dataset, we chose to create
-# a .csv file in Excel which contains 4 categories of 10 prompts each.
-
-# Each LLM received each prompt and we graded their answer on a scale from 0
-# (worst) to 10 (best). We also created a column which indicates -in the
-# integer form- which LLM gave the best answer and thus, is best fitted to
-# provide future answer on similar prompts.
-
-# The LLMs are listed as follows: ChatGPT is 0, Claude is 1, Gemini is 2,
-# Le Chat is 3, and Grok is 4.
-
-# As the app is developped in Streamlit, we need to import it in our code.
-# We will also need NumPy later in our code.
-
-# Once the .csv file was done, we made some extensive research to find the right
-# Python library to work with our tabular dataset. We found out it is the Pandas
-# library.
-
-# The source:
-    # pandas development team. (n.d.). Getting started. Pandas documentation.
-    # Retrieved April 1, 2025, from
-    # https://pandas.pydata.org/docs/getting_started/index.html#getting-started​
+# ChatGPT wurde zur Korrektur, dem de-bugging und zur Anleitung für den folgenden Codes verwendet.
+# die Quellen zu den einzelnen Schritten werden jeweils unterhalb des jeweiligen Codes aufgeführt, wobei die Erklärungen entweder daneben oder darüber stehen.
 
 
-import streamlit as st
-import pandas as pd
-import numpy as np
+# Unser Projekt ist eine Ein-Platform-Lösung, welche User mit den APIs von 5 LLMs (ChatGPT, Claude, Gemini, Le Chat, and Grok) verbindet.
+# Die Benutzer schreiben einen Prompt und unser Machine-learning-modell analysiert diesen und weist ihn mittels einer linearen Regression dem best passenden LLM zu.
+# Die App wird dann über die API des gewählten AI-Modells dem User eine Antwort zurückgeben.
 
 
-# Once Pandas is imported, we need this library to interact with our .csv file.
-# This can be done through Pandas' dataframe which we named -by convention- df.
+# Nach langer Recherche zur Benutzung von Datasets haben wir uns entschieden ein .csv File in Excel zu erstellen, welches 4 Kategorien mit 10 Prompts enthält.
+# Jedem LLM wurden alle Prompts gestellt und die entsprechenden Antworten auf einer Skala von 0(schlecht) bis 10 (sehr gut) bewertet.  
+# Eine weitere Spalte zur Erfassung des best-antwortenden AI-Modells je Kategorie wird als Anhaltspunkt verwendet, dass dieses LLM am besten zur Beantwortung derartiger Prompts geeignet ist.
 
-# df then needs to interact with pd.read_csv to access our .csv file which is
-# named "prompts.csv". It will read the .csv file into a DataFrame.
-
-# The sources:
-    # pandas development team. (n.d.). pandas.read_csv.
-    # pandas documentation. Retrieved April 1, 2025, from
-    # https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html
-
-    # IPython development team. (n.d.). IPython.display.display. IPython
-    # documentation. Retrieved April 1, 2025, from
-    # https://ipython.readthedocs.io/en/8.26.0/api/generated/IPython.display.html
-
-    # pandas development team. (n.d.). pandas.DataFrame. pandas documentation.
-    # Retrieved April 1, 2025, from
-    # https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html​
+# Die LLMs sind wie folgt aufgelistet: ChatGPT ist 0, Claude ist 1, Gemini ist 2, Le Chat ist 3, and Grok ist 4.
 
 
-df = pd.read_csv("prompts.csv")
+
+import streamlit as st # Um die App auf Streamlit bauen zu können und darüber zu deployen.
+import pandas as pd # Die Pandas Library erwies sich am geeignetsten, um mit unserem tabellenförmigen Dataset zu arbeiten.
+import numpy as np # Wird ebenfalls für den Code benötigt.
+
+# Quellen:
+    # pandas development team. (o.D.). Getting started. Pandas documentation. Abgerufen am 1 April, 2025, von https://pandas.pydata.org/docs/getting_started/index.html#getting-started​
 
 
-# We know need to train our model on our data set. After some research, it
-# appeared that the sklearn library would be best to train our model.
+df = pd.read_csv("prompts.csv") # Um mit unserem .csv File (Namens "prompts.csv) zu interagieren, wird über die Pandas Dataframe (pd) Funktion pd.read_csv auf das .csv zugegriffen und in ein df eingelesen.
 
-# We also discovered that we needed to split our
-# dataset into training and testing sets. Thus, we need to import the
-# "train_test_split" module. This splits our data into a training set
-# and a testing set.
-
-# The sources:
-    # Google Developers. (n.d.). Dividing the original dataset. In Machine
-    # Learning Crash Course. Retrieved April 1, 2025, from
-    # https://developers.google.com/machine-learning/crash-course/overfitting/dividing-datasets​
-
-    # scikit-learn developers. (n.d.). Computing cross-validated metrics.
-    # scikit-learn documentation. Retrieved April 1, 2025, from
-    # https://scikit-learn.org/stable/modules/cross_validation.html#computing-cross-validated-metrics​
-
-    # scikit-learn developers. (n.d.). sklearn.model_selection.train_test_split.
-    # scikit-learn documentation. Retrieved April 1, 2025, from
-    # https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html​
+ # Quellen:
+    # pandas development team. (o.D.). pandas.read_csv. pandas documentation. Abgerufen am 1. April, 2025, von https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html
+    # IPython development team. (o.D.). IPython.display.display. IPython documentation. Abgerufen am 1. April, 2025, von https://ipython.readthedocs.io/en/8.26.0/api/generated/IPython.display.html
+    # pandas development team. (o.D.). pandas.DataFrame. pandas documentation. Abgerufen am 1. April, 2025, von https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html​
 
 
-from sklearn.model_selection import train_test_split
+# Um unser Modell auf unserem Dataset zu trainieren, haben wir uns nach einiger Recherche für die sklearn Library entschieden.
+
+from sklearn.model_selection import train_test_split # Unser Dataset wird mittels "train_test_split" Modul in Training- und Testing-sets aufgeteilt.
+
+# Quellen:
+    # Google Developers. (o.D.). Dividing the original dataset. In Machine Learning Crash Course. Abgerufen am 1. April, 2025, von https://developers.google.com/machine-learning/crash-course/overfitting/dividing-datasets​
+    # scikit-learn developers. (o.D.). Computing cross-validated metrics. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/cross_validation.html#computing-cross-validated-metrics​
+    # scikit-learn developers. (o.D.). sklearn.model_selection.train_test_split. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html​
 
 
-# After losing a lot of time, we finally came to the conclusion -and understood-
-# that machine learning models can not work with text directly. Thus, we needed to
-# import the TF-IDF Vectorizer which formats text into vectors. This way, our
-# model can understand the data it has to train on as it transforms our text into
-# numerical vectors.
+# Da Machine Learning nicht in der Art mit Text umgehen kann, in welcher wir beabsichtigten, mussten wir den TF-idf Vectorizer importieren. 
 
-# The sources:
-    # scikit-learn developers. (n.d.). Text feature extraction.
-    # scikit-learn documentation. Retrieved April 1, 2025, from
-    # https://scikit-learn.org/stable/modules/feature_extraction.html#text-feature-extraction
+from sklearn.feature_extraction.text import TfidfVectorizer # Wandelt den Text in numerische Vektoren um, damit unser Modell die Daten, mit welchen es trainiert, versteht. 
 
-    # scikit-learn developers. (n.d.).
-    # sklearn.feature_extraction.text.TfidfVectorizer. scikit-learn
-    # documentation. Retrieved April 1, 2025, from
-    # https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html
-
-    # Masudowolabi. (2024, June 10). How to use sklearn’s TfidfVectorizer for
-    # text feature extraction in model testing. Medium. Retrieved April 1, 2025,
-    # from https://medium.com/@masudowolabi/how-to-use-sklearns-tfidfvectorizer-for-text-feature-extraction-in-model-testing-e1221fd274f8
+# Quellen:
+    # scikit-learn developers. (o.D.). Text feature extraction. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/feature_extraction.html#text-feature-extraction
+    # scikit-learn developers. (o.D.). sklearn.feature_extraction.text.TfidfVectorizer. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html
+    # Masudowolabi. (2024, 10. Juni). How to use sklearn’s TfidfVectorizer for text feature extraction in model testing. Medium. Abgerufen am 1. April, 2025, von https://medium.com/@masudowolabi/how-to-use-sklearns-tfidfvectorizer-for-text-feature-extraction-in-model-testing-e1221fd274f8
 
 
-from sklearn.feature_extraction.text import TfidfVectorizer
-
-
-# One might think that using the RandomForestClasifier would be best as it combines
-# the prediction of multiple decision trees. However, after carefully analyzing the data, 
-# we could see that each LLM responds in a
-# rather predictable way to prompts' specific features (e.g. coding). Thus, one
-# can see linear patterns between prompt features and LLM scores. This is why we
-# we need to import the LinearRegression from sklearn.
-
-# The sources:
-    # scikit-learn developers. (n.d.). Linear models. scikit-learn
-    # documentation. Retrieved April 1, 2025, from
-    # https://scikit-learn.org/stable/modules/linear_model.html​
-
-    # scikit-learn developers. (n.d.). sklearn.ensemble.RandomForestClassifier.
-    # scikit-learn documentation. Retrieved April 1, 2025, from
-    # https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html​
-
-    # scikit-learn developers. (n.d.). sklearn.linear_model.LinearRegression.
-    # scikit-learn documentation. Retrieved April 1, 2025, from
-    # https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html
-
+# In der Analyze der Daten wurde ersichtlich, dass jedes LLM sehr vorhersehbar auf Prompts mit spezifischen Elementen wie "coding" antwortet. Dadurch wurden lineare Muster zwischen Prompt-Elementen und LLM scores ersichtlich.
+# Eine LinearRegression aus der sklearn Library erschien daher als nützliches Tool.
 
 from sklearn.linear_model import LinearRegression
 
+# Quellen:
+    # scikit-learn developers. (o.D.). Linear models. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/linear_model.html​
+    # scikit-learn developers. (o.D.). sklearn.ensemble.RandomForestClassifier. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html​
+    # scikit-learn developers. (o.D.). sklearn.linear_model.LinearRegression. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html
 
-# After we'll have trained our model on our data, we will need a feedback loop
-# to assess the quality of our data. To do so, we relied on our Operations
-# Management knowledge. We decided to use the Mean Squared Error and the R2
-# score. MSE measures the average squared difference between the predicted and
-# actual value. The lower the better the performance of our model. R2 indicates how
-# well the model explains the variability of the target variable. The closer the R2 score 
-# is to 1.0, the more patterns the model captures.
 
-#The source:
-    # scikit-learn developers. (n.d.). sklearn.metrics.mean_squared_error.
-    # scikit-learn documentation. Retrieved April 1, 2025, from
-    # https://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_squared_error.html
-
-    # scikit-learn developers. (n.d.). Mean squared error. In Metrics and
-    # scoring: Quantifying the quality of predictions.
-    # scikit-learn documentation. Retrieved April 1, 2025, from
-    # https://scikit-learn.org/stable/modules/model_evaluation.html#mean-squared-error
-
-    # scikit-learn developers. (n.d.). sklearn.metrics.r2_score.
-    # scikit-learn documentation. Retrieved April 1, 2025, from
-    # https://scikit-learn.org/stable/modules/generated/sklearn.metrics.r2_score.html
-
-    # scikit-learn developers. (n.d.). R² score. In Metrics and scoring:
-    # Quantifying the quality of predictions. scikit-learn documentation.
-    # Retrieved April 1, 2025, from
-    # https://scikit-learn.org/stable/modules/model_evaluation.html#r2-score
-
+# Ein Feedback Loop zur Bewertung der Qualität unserer Daten wurde mittels Mean Squared Error (MSE = durchschnittlicher Fehler zwischen dem predicted und dem actial value) und R2 (wie sehr erklärt unser Modell die Variabilität in der Zielvariable) erstellt.
+# Je niedriger der MSE und je näher das R2 an 1.0, desto besser ist das Modell.
 
 from sklearn.metrics import mean_squared_error, r2_score
 
+#Quellen:
+    # scikit-learn developers. (o.D.). sklearn.metrics.mean_squared_error. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_squared_error.html
+    # scikit-learn developers. (o.D.). Mean squared error. In Metrics and scoring: Quantifying the quality of predictions. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/model_evaluation.html#mean-squared-error
+    # scikit-learn developers. (o.D.). sklearn.metrics.r2_score. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/generated/sklearn.metrics.r2_score.html
+    # scikit-learn developers. (o.D.). R² score. In Metrics and scoring: Quantifying the quality of predictions. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/model_evaluation.html#r2-score
 
-# Now that all the necessary and relevant tools have been imported, we will
-# begin the training of our model with our .csv file.
 
-# For the data to be used as "training food", we need to extract it from the
-# .csv file. X extracts the input features; it is what the model will learn
-# from. Y extracts the target values; basically, what the model is training to
-# predict. The target value is the model that had the highest score on a
-# particular prompt.
+X = df['prompt_text'] # Extrahiert die Input Features, mit denen das Modell lernt.
+y = df['best_model_label'] # Extrahiert die Zielvariablen, also was das Modell vorherzusagen Versucht. Die Zielvariable ist das Modell, welches den höchsten Score für einen spezifischen Prompt hatte.
 
-# The Sources:
-    # scikit-learn developers. (n.d.). Feature selection. scikit-learn
-    # documentation. Retrieved April 1, 2025, from
-    # https://scikit-learn.org/stable/modules/feature_selection.html​
+# Quellen:
+    # scikit-learn developers. (o.D.). Feature selection. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/feature_selection.html​
+    # pandas development team. (o.D.). pandas.DataFrame. pandas documentation (version 0.23). Abgerufen am 1. April, 2025, von https://pandas.pydata.org/pandas-docs/version/0.23/generated/pandas.DataFrame.html​
 
-    # pandas development team. (n.d.). pandas.DataFrame. pandas documentation
-    # (version 0.23). Retrieved April 1, 2025, from
-    # https://pandas.pydata.org/pandas-docs/version/0.23/generated/pandas.DataFrame.html​
 
+vectorizer = TfidfVectorizer() # Verschafft jedem Wort Wichtigkeit je nach Kontext (siehe oben für Begründung).
 
-X = df['prompt_text']
-y = df['best_model_label']
+# Quellen:
+    # scikit-learn developers. (o.D.). Text feature extraction. In Feature extraction. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/feature_extraction.html#text-feature-extraction​
 
 
-# As mentionned above, plain text cannot be used to train a model. Thus, we are going to
-# vectorize our data to add a specific and granular importance on each words depending on
-# the context.
+X_vect = vectorizer.fit_transform(X) # Um dem Modell zu ermöglichen Vokabular zu lernen und eine Matrix zu erstellen. Erstellt eine numerische Matrix der semantischen Textmuster.
 
-# The source:
-    # scikit-learn developers. (n.d.). Text feature extraction. In Feature
-    # extraction. scikit-learn documentation. Retrieved April 1, 2025, from
-    # https://scikit-learn.org/stable/modules/feature_extraction.html#text-feature-extraction​
+# Quellen:
+    # scikit-learn developers. (o.D.). sklearn.feature_extraction.text.CountVectorizer. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html​
 
 
-vectorizer = TfidfVectorizer()
+X_train, X_test, y_train, y_test = train_test_split(X_vect, y, test_size = 0.05, random_state = 21) # Unterteilt die Daten in Trainings- und Test-sets, wobei die test_size 0.05 gewählt wurde, um mit 95% der Daten zu lernen, da nicht viele Daten zur Verfügung stehen.
+                                                                                                    # Daher möchten wir die Trainigs-iterationen möglichst erhöhen.
+# Quellen:
+    # scikit-learn developers. (o.D.). sklearn.model_selection.train_test_split. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html​
 
 
-# Now that the data has been vectorized,the following snippet allows us to make 
-# the model learn the vocabulary and transform it into a matrix. 
-# This way, it creates a matrix of the semantic text patterns numerically.
+model = LinearRegression() # Zieht eine Trendlinie durch die Daten für Vorhersagen (Begründung zur Wahl siehe oben).
 
-# The source:
-    # scikit-learn developers. (n.d.).
-    # sklearn.feature_extraction.text.CountVectorizer.
-    # scikit-learn documentation. Retrieved April 1, 2025, from
-    # https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html​
+# Quellen:
+    # scikit-learn developers. (o.D.). sklearn.linear_model.LinearRegression. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html​
 
 
-X_vect = vectorizer.fit_transform(X)
+model.fit(X_train, y_train) # Bringt dem Modell Muster bei, indem die Input-Features mit den Target-Values interagieren.
 
+#Quellen:
+    # scikit-learn developers. (o.D.). Cross-validation: evaluating estimator performance. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/cross_validation.html​
 
-# At this stage, the data is almost fully ready to undergo the training.
-# The last step is to split the data between training and testing sets.
 
-# The code snippet is separated into the following parts:
-  # X_train: the inputs the model will be trained on.
-  # X_test: the inputs that the model is actually tested on.
-  # y_train: the correct output for training.
-  # y_test: the correct output for testing.
+y_pred = model.predict(X_test) # Um die Validität der Vorhersagen des Modells zu testen.
 
-# The second part of the snippet is the train_test_split module and its
-# parameters.
-  # X_vect: the vectorized text data.
-  # y: target values we want to predict.
-  # test_size = 0.05: the ratio of the training and the testing data.
-  # random_state = 21: controls how the data is shuffled before it's split.
+#Quellen:
+    # Brownlee, J. (2020, 10 Januar). How to make predictions with scikit-learn. Machine Learning Mastery. Abgerufen am 1. April, 2025, von https://machinelearningmastery.com/make-predictions-scikit-learn/​
 
-# The X and the y are respectively coming from
-# "X = df['prompt_text']" and "y = df['best_model_label']".
 
-# For the test_size, we used 0.05 because it allows the model to train on 95% of
-# the data and test on 5%. This split seems the most reasonable as we do not
-# have a lot of data available. Thus, we want to maximize the training
-# iterations.
+print(mean_squared_error(y_test, y_pred)) # Gibt den MSE als Feedback für das Modell zurück.
+print(r2_score(y_test, y_pred)) # Gibt R2 als Feedback für das Modell zurück.
 
-# For the random_state, we randomly decided to take 21 as it is a random
-# variable.
+# Quellen:
+    # scikit-learn developers. (o.D.). Mean squared error. In Metrics and scoring: quantifying the quality of predictions. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/model_evaluation.html#mean-squared-error
+    # scikit-learn developers. (o.D.). R² score. In Metrics and scoring: quantifying the quality of predictions. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/model_evaluation.html#r2-score
 
-# The source:
-    # scikit-learn developers. (n.d.).
-    # sklearn.model_selection.train_test_split.
-    # scikit-learn documentation. Retrieved April 1, 2025, from
-    # https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html​
+# Nach einer Unterhaltung mit ChatGPT, entschieden wir, dass ein MSE von 0.876 und ein R2 von 0.610 genügend sind, gegeben der Menge an zur Verfügung stehenden Daten.
+# Das Modell wird nun also benutzt, um einen Score für jedes LLM zu berechnen.
 
 
-X_train, X_test, y_train, y_test = train_test_split(X_vect, y, test_size = 0.05, random_state = 21)
+llm_classes = ['ChatGPT', 'Claude', 'Gemini', 'Mistral', 'Grok'] # Der Index der LLMs in der Liste entspricht den Labels in unserem Daten-set.
 
 
-# The data is now ready to undergo the training and testing part. We are going to
-# use the linear regression to draw a line through our data (linearise
-# the data). This snippet acts as the initializer for the model.
+# Funktion zur Auswahl des LLM:
+def select_best_llm(prompt): # Gibt dem User-prompt die Antwort des besten LLM zurück.
+    vect_prompt    = vectorizer.transform([prompt]) # Verwendet TF-idf, um den User-prompt in gleichartige Vektoren zu verwandeln, welche auch beim Training benutzt wurden.
+    predicted_label = model.predict(vect_prompt)[0] # Mittels des trainierten Modells wird ein Float zwischen 0 & 5 ausgegeben. Dieser korrespondiert mit den 5 LLMs aus unserer Liste.
+    best_index      = round(predicted_label) # Rundet den Float zum nächsten Integer auf/ab. Dieses LLM wird dann zur Antwort verwendet.
+    selected_llm    = llm_classes[best_index] # Holt das beste LLM, welches zu dem gerundeten Integer gehört aus der Liste der LLMs.
+    return selected_llm, predicted_label # Gibt alle relevanten Informationen zurück.
 
-# The source:
-    # scikit-learn developers. (n.d.). sklearn.linear_model.LinearRegression.
-    # scikit-learn documentation. Retrieved April 1, 2025, from
-    # https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html​
+    #Funktion zur Dokumentation des Gebrauchs der LLMs:
+    if 'llm_usage' not in st.session_state: 
+        st.session_state.llm_usage = {llm: 0 for llm in llm_classes} 
+    st.session_state.llm_usage[choice] += 1 # Fügt neue Daten der LLM-Auswahl dem Chart hinzu.
+    return choice, pred 
 
+# Quellen:
+    # Python Software Foundation. (o.D.). More on lists. In The Python tutorial. Abgerufen am 1. April, 2025, von https://docs.python.org/3/tutorial/datastructures.html#more-on-lists​
+    # NumPy developers. (o.D.). What is NumPy?. NumPy documentation. Abgerufen am 1. April, 2025, von https://numpy.org/devdocs/user/whatisnumpy.html​
+    # Python Software Foundation. (o.D.). Defining functions. In The Python tutorial. Abgerufen am 1. April, 2025, von https://docs.python.org/3/tutorial/controlflow.html#defining-functions
+    # scikit-learn developers. (o.D.). sklearn.feature_extraction.text.TfidfVectorizer. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html
+    # scikit-learn developers. (o.D.). sklearn.linear_model.LinearRegression.predict. scikit-learn documentation. Abgerufen am 1. April, 2025, von https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html#sklearn.linear_model.LinearRegression.predict
+    # Python Software Foundation. (o.D.). round. In Built-in functions. Abgerufen am 1. April, 2025, von https://docs.python.org/3/library/functions.html#round
+    # Python Software Foundation. (o.D.). Lists. In An informal introduction to Python. Abgerufen am 1. April, 2025, von https://docs.python.org/3/tutorial/introduction.html#lists
+    # Python Software Foundation. (o.D.). Dictionaries. In Data structures. Abgerufen am 1. April, 2025, von https://docs.python.org/3/tutorial/datastructures.html#dictionaries
+    # Streamlit, Inc. (o.D.-a). st.session_state. Streamlit documentation. Abgerufen am 2. Mai, 2025, von https://docs.streamlit.io/develop/api-reference/caching-and-state/st.session_state
+    # Streamlit, Inc. (o.D.-b). Session state: Architecture. Streamlit documentation. Abgerufen am 3. Mai, 2025, von https://docs.streamlit.io/develop/concepts/architecture/session-state
+    # Python Software Foundation. (o.D.). Dictionaries. In The Python Tutorial. Abgerufen am 3. Mai, 2025, von https://docs.python.org/3/tutorial/datastructures.html#dictionaries
+    # Python Software Foundation. (o.D.). The return statement. In The Python Reference. Abgerufen am 3. Mai, 2025, von https://docs.python.org/3/reference/simple_stmts.html#the-return-statement
 
-model = LinearRegression()
 
-
-# The data has been linearised and is now ready to be trained by making 
-# the input features (X_train) interact with the target values (y_train). 
-# In other words, our model is learning the patterns through model.fit.
-
-#The source:
-    # scikit-learn developers. (n.d.). Cross-validation: evaluating estimator
-    # performance. scikit-learn documentation. Retrieved April 1, 2025, from
-    # https://scikit-learn.org/stable/modules/cross_validation.html​
-
-
-model.fit(X_train, y_train)
-
-
-# The model has now been trained and is ready to be tested on unseen data.
-# For this part, y_pred is a list of predicted values which the model thinks
-# are correct for each input in X_test
-
-#The source:
-    # Brownlee, J. (2020, January 10). How to make predictions with
-    # scikit-learn. Machine Learning Mastery. Retrieved April 1, 2025, from
-    # https://machinelearningmastery.com/make-predictions-scikit-learn/​
-
-
-y_pred = model.predict(X_test)
-
-
-# Now, that our data has been tested with the unseen data, one needs to get
-# a feedback on the quality through the MSE and R2. Both snippets 
-# are comparing the actual values (y_test) and the predicted values (y_pred).
-
-# After discussing it with ChatGPT, an MSE of 0.876 and a r2 score of 0.610 are
-# decent results for the amount of data we have. Thus, we can continue to the next step.
-
-# The sources:
-    # scikit-learn developers. (n.d.). Mean squared error. In Metrics and
-    # scoring: quantifying the quality of predictions. scikit-learn
-    # documentation. Retrieved April 1, 2025, from
-    # https://scikit-learn.org/stable/modules/model_evaluation.html#mean-squared-error
-
-    # scikit-learn developers. (n.d.). R² score. In Metrics and scoring:
-    # quantifying the quality of predictions. scikit-learn documentation.
-    # Retrieved April 1, 2025, from
-    # https://scikit-learn.org/stable/modules/model_evaluation.html#r2-score
-
-
-print(mean_squared_error(y_test, y_pred))
-print(r2_score(y_test, y_pred))
-
-
-# The training stage for our model is now complete.
-# Now, one needs to pick the best LLM based on each user's prompt.
-# Thus, we need to use the trained model to predict a score for each LLM.
-
-# For this, we need to define the list of the LLMs that we are going to be using.
-# The index of each model is positioned based on its label in the data set.
-
-
-llm_classes = ['ChatGPT', 'Claude', 'Gemini', 'Mistral', 'Grok']
-
-
-# Now, we need to define a function that will return a prompt and provide us
-# back with the most adapted model to answer the user's prompt. 
-
-# The following code snippet is designed to predict and select the best LLM for
-# a given prompt. To do this, we have 5 other dependant functions.
-
-# The first function is 'vect_prompt' which uses the TF-IDF to transform the user's
-# prompt into numerical data based on the vocabulary used during training.
-
-# Second, 'predicted_label' uses the trained model to predict the label based on
-# the prompt. This will give us a float number which represents the regressed
-# estimate of the best LLM for a particular prompt. The logic behind this is that 
-# we will get a float number between 0 and 5 from the regression. If one remembers,
-# our list of LLMs goes from 0 to 5. Thus, the float number we get corresponds to the 
-# best fitted LLM to answer the prompt.
-
-# Third, 'best_index' is rounding the float number to the nearest integer. This
-# integer is the position of one of our LLM, meaning this LLM is the most fit
-# to answer this particular prompt.
-
-# Fourth, 'best_llm' uses the integer to retrieve the corresponding name of the
-# best fit LLM from the 'llm_classes' list.
-
-# Lastly, 'return' provides us with all the relevant information about our
-# prediction
-
-# Moreover, as we want the user to see how many times each LLM was selected, we
-# need to track the number of times each LLM was selected. Then, this will
-# be displayed in a bar chart. Now, we need to update the usage tracker 
-# as the LLM has been selected.
-
-# The sources:
-    # Python Software Foundation. (n.d.). More on lists. In The Python tutorial.
-    # Retrieved April 1, 2025, from
-    # https://docs.python.org/3/tutorial/datastructures.html#more-on-lists​
-
-    # NumPy developers. (n.d.). What is NumPy?. NumPy documentation.
-    # Retrieved April 1, 2025, from
-    # https://numpy.org/devdocs/user/whatisnumpy.html​
-
-    # Python Software Foundation. (n.d.). Defining functions.
-    # In The Python tutorial. Retrieved April 1, 2025, from
-    # https://docs.python.org/3/tutorial/controlflow.html#defining-functions
-
-    # scikit-learn developers. (n.d.).
-    # sklearn.feature_extraction.text.TfidfVectorizer. scikit-learn
-    # documentation. Retrieved April 1, 2025, from
-    # https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html
-
-    # scikit-learn developers. (n.d.).
-    # sklearn.linear_model.LinearRegression.predict. scikit-learn documentation.
-    # Retrieved April 1, 2025, from
-    # https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html#sklearn.linear_model.LinearRegression.predict
-
-    # Python Software Foundation. (n.d.). round. In Built-in functions.
-    # Retrieved April 1, 2025, from
-    # https://docs.python.org/3/library/functions.html#round
-
-    # Python Software Foundation. (n.d.). Lists. In An informal introduction to
-    # Python. Retrieved April 1, 2025, from
-    # https://docs.python.org/3/tutorial/introduction.html#lists
-
-    # Python Software Foundation. (n.d.). Dictionaries. In Data structures.
-    # Retrieved April 1, 2025, from
-    # https://docs.python.org/3/tutorial/datastructures.html#dictionaries
-
-    # Streamlit, Inc. (n.d.-a). st.session_state. Streamlit documentation. 
-    # Retrieved May 2, 2025, from 
-    # https://docs.streamlit.io/develop/api-reference/caching-and-state/st.session_state
-
-    # Streamlit, Inc. (n.d.-b). Session state: Architecture. 
-    # Streamlit documentation. Retrieved May 3, 2025, from 
-    # https://docs.streamlit.io/develop/concepts/architecture/session-state
-
-    # Python Software Foundation. (n.d.). Dictionaries. 
-    # In The Python Tutorial. Retrieved May 3, 2025, from 
-    # https://docs.python.org/3/tutorial/datastructures.html#dictionaries
-
-    # Python Software Foundation. (n.d.). The return statement. 
-    # In The Python Reference. Retrieved May 3, 2025, from 
-    # https://docs.python.org/3/reference/simple_stmts.html#the-return-statement
-
-
-def select_best_llm(prompt):
-    vect_prompt    = vectorizer.transform([prompt])
-    predicted_label = model.predict(vect_prompt)[0]
-    best_index      = round(predicted_label)
-    selected_llm    = llm_classes[best_index]
-    return selected_llm, predicted_label
-
-    
-    if 'llm_usage' not in st.session_state:
-        st.session_state.llm_usage = {llm: 0 for llm in llm_classes}
-    st.session_state.llm_usage[choice] += 1
-    return choice, pred
-
-
-# We are now tackling the last part of our project. We need to connect our code
-# to the model's API to get the answer to our prompt from the selected LLM. 
-# Our code detects which LLM should be called and it sends the prompt's request 
-# to the correct LLMs API. Then, the LLM answers the user's prompt and sends 
-# the answer back to the user's screen.
-
-# To be able to "call" the correct LLM based on our trained model through its API,
-# we need to create a logic pathway of which LLM's API our code needs 
-# to contact. Our code contatcs the correct API based on the integer the 
-# user's prompt created.
-
-# The logic is the following: if the 'selected_llm' variable is equal to 'LLM',
-# then, it calls the function 'call_llm(prompt)' to send the prompt to the LLM's
-# API. It basically centralizes the logic for sending prompts to the correct LLM.
-
-
-def call_llm_api(prompt, selected_llm):
+# Grund-Funktion, um den Prompt an das richtige LLM zu senden:
+def call_llm_api(prompt, selected_llm): # Sendet den Prompt an die API des ausgewählten AI-Modells und gibt die Antwort auf den Screen des Users zurück.
   if selected_llm == 'ChatGPT':
     return call_chatgpt(prompt)
   elif selected_llm == 'Claude':
@@ -457,25 +177,7 @@ def call_llm_api(prompt, selected_llm):
     return "Error: Unknown LLM selected"
 
 
-# Now, that the logic pathway has been created, we will write the code that will
-# call OpenAI's ChatGPT API if the float number is nearest to 0 (ChatGPT's place being 0).
-# The code is based on OpenAI's own documentation as well as our own
-# modifications to make the code work in our workflow.
-
-# The sources:
-    # OpenAI. (n.d.). OpenAI Python library. OpenAI API documentation.
-    # Retrieved April 1, 2025, from
-    # https://platform.openai.com/docs/libraries/python-library?language=python
-
-    # OpenAI. (n.d.). Step 2: Set up your API key. OpenAI API documentation.
-    # Retrieved April 1, 2025, from
-    # https://platform.openai.com/docs/quickstart/step-2-set-up-your-api-key?api-mode=responses
-
-    # Python Software Foundation. (n.d.). Defining functions. In The Python
-    # tutorial. Retrieved April 1, 2025, from
-    # https://docs.python.org/3/tutorial/controlflow.html#defining-functions
-
-
+# Funktion zum Abruf der API von OpenAI. Hierfür wurde die Dokumentation von OpenAI verwendet und angepasst:
 import openai
 client = openai.OpenAI(api_key=st.secrets["openai"]["api_key"])
 def call_chatgpt(prompt):
@@ -490,25 +192,13 @@ def call_chatgpt(prompt):
     except Exception as e:
         return f"ChatGPT API error: {str(e)}"
 
-
-# This part of the code will call Claude's API if prompted by the user's prompt.
-# The code is based on Anthropic's own documentation as well as our own
-# modifications to make the code work in our workflow.
-
-# The sources:
-    # Anthropic. (n.d.). Anthropic documentation.
-    # Retrieved April 1, 2025, from https://docs.anthropic.com/en/home
-
-    # Anthropic. (n.d.). Messages API. Retrieved April 1, 2025,
-    # from https://docs.anthropic.com/en/api/messages
-
-    # Anthropic. (n.d.). Getting started. Retrieved April 1, 2025,
-    # from https://docs.anthropic.com/en/api/getting-started
-
-    # Anthropic. (n.d.). Initial setup. Retrieved April 1, 2025,
-    # from https://docs.anthropic.com/en/docs/initial-setup
+# Quellen:
+    # OpenAI. (o.D.). OpenAI Python library. OpenAI API documentation. Abgerufen am 1. April, 2025, von https://platform.openai.com/docs/libraries/python-library?language=python
+    # OpenAI. (o.D.). Step 2: Set up your API key. OpenAI API documentation. Abgerufen am 1. April, 2025, von https://platform.openai.com/docs/quickstart/step-2-set-up-your-api-key?api-mode=responses
+    # Python Software Foundation. (o.D.). Defining functions. In The Python tutorial. Abgerufen am 1. April, 2025, von https://docs.python.org/3/tutorial/controlflow.html#defining-functions
 
 
+# Funktion zum Abruf der API von Claude. Hierfür wurde die Dokumentation von Anthropic verwendet und angepasst:
 import anthropic
 claude_client = anthropic.Anthropic(api_key=st.secrets["anthropic"]["claude_api_key"])
 def call_claude(prompt: str) -> str:
@@ -524,25 +214,14 @@ def call_claude(prompt: str) -> str:
     except Exception as e:
         return f"Claude API error: {e}"
 
-
-# This part of the code will call Gemini's API if prompted by the user's prompt.
-# The code is based on Google's own documentation as well as our own
-# modifications to make the code work in our workflow.
-
-# The sources:
-    # Google. (n.d.). Gemini API documentation. Retrieved April 1, 2025,
-    # from https://ai.google.dev/gemini-api/docs
-
-    # Google. (n.d.). Gemini API quickstart. Retrieved April 1, 2025,
-    # from https://ai.google.dev/gemini-api/docs/quickstart
-
-    # Google. (n.d.). Gemini models. Retrieved April 1, 2025,
-    # from https://ai.google.dev/gemini-api/docs/models
-
-    # Google. (n.d.). Gemini API available regions. Retrieved April 1, 2025,
-    # from https://ai.google.dev/gemini-api/docs/available-regions
+# Quellen:
+    # Anthropic. (o.D.). Anthropic documentation. Abgerufen am 1. April, 2025, von https://docs.anthropic.com/en/home
+    # Anthropic. (o.D.). Messages API. Abgerufen am 1. April, 2025, von https://docs.anthropic.com/en/api/messages
+    # Anthropic. (o.D.). Getting started. Abgerufen am 1. April, 2025, von https://docs.anthropic.com/en/api/getting-started
+    # Anthropic. (o.D.). Initial setup. Abgerufen am 1. April, 2025, von https://docs.anthropic.com/en/docs/initial-setup
 
 
+# Funktion zum Abruf der API von Gemini. Hierfür wurde die Dokumentation von Google verwendet und angepasst:
 import google.generativeai as genai
 from google.generativeai import GenerativeModel
 genai.configure(api_key = "AIzaSyBbsMHZTSKv2BF4Rw2KOMWeHcb4RtWzZiA")
@@ -554,19 +233,15 @@ def call_gemini(prompt):
     except Exception as e:
         return f"Gemini API error: {str(e)}"
 
-
-# This part of the code will call Mistral's API if prompted by the user's prompt.
-# The code is based on Mistral's own documentation as well as our own
-# modifications to make the code work in our workflow.
-
-# The sources:
-    # Mistral AI. (n.d.). Mistral AI documentation.
-    # Retrieved April 1, 2025, from https://docs.mistral.ai/
-
-    # Mistral AI. (n.d.). Mistral AI API.
-    # Retrieved April 1, 2025, from https://docs.mistral.ai/api/
+# Quellen:
+    # Google. (o.D.). Gemini API documentation. Abgerufen am 1. April, 2025, von from https://ai.google.dev/gemini-api/docs
+    # Google. (o.D.). Gemini API quickstart. Abgerufen am 1. April, 2025, von from https://ai.google.dev/gemini-api/docs/quickstart
+    # Google. (o.D.). Gemini models. Abgerufen am 1. April, 2025, von from https://ai.google.dev/gemini-api/docs/models
+    # Google. (o.D.). Gemini API available regions. Abgerufen am 1. April, 2025, von https://ai.google.dev/gemini-api/docs/available-regions
 
 
+
+# Funktion zum Abruf der API von Mistral. Hierfür wurde die Dokumentation von Mistral verwendet und angepasst:
 from mistralai import Mistral
 mistral_client = Mistral(api_key = "vJQyWusvYsujsVZDZZiUjaSLDjbV8H4C")
 def call_mistral(prompt: str) -> str:
@@ -582,18 +257,12 @@ def call_mistral(prompt: str) -> str:
             messages = [{"role": "user", "content": prompt}],
         )
 
-
-# This part of the code will call XAI's API if prompted by the user's prompt.
-# The code is based on OpenAI's own documentation and xAI's own documentation
-# as well as our own modifications to make the code work in our workflow. xAI
-# still relies on OpenAI's infrastructure to use its API in Python.
-
-# The sources:
-    # moesmufti. (n.d.). xai_grok_sdk [Computer software].
-    # GitHub. Retrieved April 1, 2025, from
-    # https://github.com/moesmufti/xai_grok_sdk
+# Quellen:
+    # Mistral AI. (o.D.). Mistral AI documentation. Abgerufen am 1. April, 2025, von https://docs.mistral.ai/
+    # Mistral AI. (o.D.). Mistral AI API. Abgerufen am 1. April, 2025, von https://docs.mistral.ai/api/
 
 
+# Funktion zum Abruf der API von XAI. Hierfür wurde die Dokumentation von OpenAI und xAI verwendet und angepasst. xAIs API braucht die Struktur von OpenAI um in Python verwendet werden zu können:
 from openai import OpenAI
 client = OpenAI(
     api_key = "xai-eQkIynQcrNUXG5CN1WskQnn9hcegTV1PqDSHb2k0Rb4NOq9dSVhx4kDITUx7WKXte7uENQcoGFzZaOO5",
@@ -609,46 +278,22 @@ def call_grok(prompt: str) -> str:
     except Exception as e:
         return f"Grok error: {e}"
 
-
-# Now, we want to be able to retrieve the user's prompt, have the best fitted
-# LLM to handle that prompt, call that LLM via its API, and display its response.
-
-# First, we want to get the user's prompt with 'prompt'.
-# Second, we call 'select_best_llm' to return the name of the best model.
-# Third, we display the selected LLM and the numeric output (the float number).
-# Fourth, 'llm_response' sends the prompt to the selected API.
-# Finally, the code prints the answer of the LLM.
-
-# After several hours of running into the issue of not being to 
-# evaluate the variable names in the LLM's code part, we 
-# discovered the existence of the f-strings and their necessity
-# at that stage. This means that we can insert the value of a 
-# variable directly into a string.
-
-# The sources:
-    # Python Software Foundation. (n.d.). input. In Built-in functions.
-    # Retrieved April 1, 2025, from
-    # https://docs.python.org/3/library/functions.html#input
-
-    # Python Software Foundation. (n.d.). Formatted string literals.
-    # In Lexical analysis. Retrieved April 1, 2025, from
-    # https://docs.python.org/3/reference/lexical_analysis.html#f-strings
-
-    # Python Software Foundation. (n.d.). Dictionaries. In Data structures.
-    # Retrieved April 1, 2025, from
-    # https://docs.python.org/3/tutorial/datastructures.html#dictionaries
-
-    # Python Software Foundation. (n.d.). Defining functions. In The Python
-    # tutorial. Retrieved April 1, 2025, from
-    # https://docs.python.org/3/tutorial/controlflow.html#defining-functions
+# Quellen:
+    # moesmufti. (o.D.). xai_grok_sdk [Computer software]. GitHub. Abgerufen am 1. April, 2025, von https://github.com/moesmufti/xai_grok_sdk
 
 
+# Funktion, um die Resultate der Konversation von mAItcher und User darzustellen:
 def run_from_terminal():
-    prompt = input("Write your prompt: ")
-    result = select_best_llm(prompt, model, vectorizer, llm_classes)
+    prompt = input("Write your prompt: ") # Um den Prompt des Users zu erhalten.
+    result = select_best_llm(prompt, model, vectorizer, llm_classes) # Gibt das ausgewählte LLM an.
     print(f"Selected LLM: {result['selected_llm']}")
     print(f"Predicted Index (raw model output): {result['predicted_label']}")
 
-    llm_response = call_llm_api(prompt, result['selected_llm'])
+    llm_response = call_llm_api(prompt, result['selected_llm']) # Gibt der API den Prompt und holt deren Antwort.
     print("\nLLM Response:\n", llm_response)
 
+# Quellen:
+    # Python Software Foundation. (o.D.). input. In Built-in functions. Abgerufen am 1. April, 2025, von https://docs.python.org/3/library/functions.html#input
+    # Python Software Foundation. (o.D.). Formatted string literals. In Lexical analysis. Abgerufen am 1. April, 2025, von https://docs.python.org/3/reference/lexical_analysis.html#f-strings
+    # Python Software Foundation. (o.D.). Dictionaries. In Data structures. Abgerufen am 1. April, 2025, von https://docs.python.org/3/tutorial/datastructures.html#dictionaries
+    # Python Software Foundation. (o.D.). Defining functions. In The Python tutorial. Abgerufen am 1. April, 2025, von https://docs.python.org/3/tutorial/controlflow.html#defining-functions
