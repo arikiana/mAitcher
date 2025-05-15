@@ -1,4 +1,5 @@
-# ChatGPT wurde zur Korrektur & dem de-bugging des folgenden Codes verwendet:
+# ChatGPT wurde zur Korrektur & dem de-bugging des folgenden Codes verwendet.
+# Die Quellen zu den einzelnen Schritten werden jeweils unterhalb des jeweiligen Codes aufgeführt, wobei die Erklärungen entweder daneben oder darüber stehen.
 
 
 import streamlit as st
@@ -41,9 +42,9 @@ with tab1:
     ) # Button, der einen direkt mit dem Chatbot verbindet.
 
 # Quellen:
-    # Streamlit. (o.D. –a). st.tabs. Streamlit documentation. Abgerufen am 12. Mai, 2025, von https://docs.streamlit.io/develop/api-reference/layout/st.tabs
-    # Streamlit. (o.D. –b). st.page_link. Streamlit documentation. Abgerufen am 12. Mai, 2025, von https://docs.streamlit.io/develop/api-reference/widgets/st.page_link
-    # Streamlit. (o.D. –c). st.markdown. Streamlit documentation. Abgerufen am 12. Mai, 2025, von https://docs.streamlit.io/develop/api-reference/text/st.markdown
+    # Streamlit. (o.D.). st.tabs. Streamlit documentation. Abgerufen am 12. Mai, 2025, von https://docs.streamlit.io/develop/api-reference/layout/st.tabs
+    # Streamlit. (o.D.). st.page_link. Streamlit documentation. Abgerufen am 12. Mai, 2025, von https://docs.streamlit.io/develop/api-reference/widgets/st.page_link
+    # Streamlit. (o.D.). st.markdown. Streamlit documentation. Abgerufen am 12. Mai, 2025, von https://docs.streamlit.io/develop/api-reference/text/st.markdown
 
 
 # Um bei einer Präferenz für einzelne Ai-Platformen direkt darauf zugreifen zu können, werden die verwendeten Modelle separat verlinkt:
@@ -58,5 +59,5 @@ with tab2:
     """)
 
 # Quellen:
-    # Streamlit. (o.D. –a). st.tabs. Streamlit documentation. Abgerufen am 12. Mai, 2025, von https://docs.streamlit.io/develop/api-reference/layout/st.tabs
-    # Streamlit. (o.D. –b). st.markdown. Streamlit documentation. Abgerufen am 12. Mai, 2025, von https://docs.streamlit.io/develop/api-reference/text/st.markdown
+    # Streamlit. (o.D.). st.tabs. Streamlit documentation. Abgerufen am 12. Mai, 2025, von https://docs.streamlit.io/develop/api-reference/layout/st.tabs
+    # Streamlit. (o.D.). st.markdown. Streamlit documentation. Abgerufen am 12. Mai, 2025, von https://docs.streamlit.io/develop/api-reference/text/st.markdown
